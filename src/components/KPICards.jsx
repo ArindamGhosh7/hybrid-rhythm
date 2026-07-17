@@ -2,7 +2,7 @@ export default function KPICards({ summary }) {
   const onTrack = summary.currentYTD >= 60;
 
   return (
-    <section className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
+    <section className="grid grid-cols-2 xl:grid-cols-4 gap-4">
       <Card
         title="Current YTD"
         value={`${summary.currentYTD.toFixed(1)}%`}
@@ -39,17 +39,17 @@ function Card({
   valueColor = "text-white",
 }) {
   return (
-    <div className="bg-slate-800 border border-slate-700 rounded-xl p-5 shadow-sm">
-      <p className="text-xs uppercase tracking-wider text-slate-400 font-semibold">
+    <div className="bg-slate-800 border border-slate-700 rounded-xl p-4 md:p-5 shadow-sm">
+      <p className="text-[10px] md:text-xs uppercase tracking-wider text-slate-400 font-semibold">
         {title}
       </p>
 
-      <div className="mt-3">
-        <div className={`text-3xl font-bold ${valueColor}`}>
+      <div className="mt-2 md:mt-3">
+        <div className={`text-2xl md:text-3xl font-bold ${valueColor}`}>
           {value}
 
           {suffix && (
-            <span className="text-lg ml-2 font-normal text-slate-400">
+            <span className="text-base md:text-lg ml-2 font-normal text-slate-400">
               {suffix}
             </span>
           )}
@@ -64,7 +64,9 @@ function Card({
         )}
 
         {subtitle && (
-          <p className="text-sm text-slate-400 mt-3 leading-6">{subtitle}</p>
+          <p className="text-xs md:text-sm text-slate-400 mt-2 md:mt-3 leading-5 md:leading-6">
+            {subtitle}
+          </p>
         )}
       </div>
     </div>
