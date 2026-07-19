@@ -46,6 +46,7 @@ export default function buildDashboard(weeks) {
       attendance: week.recommendedPresent,
 
       ytd: week.projectedYTD,
+      status: week.status,
 
       target: 60,
     })),
