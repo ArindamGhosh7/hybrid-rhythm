@@ -129,7 +129,7 @@ export default function AnalyticsChart({ data }) {
                 marginBottom: "4px",
               }}
               itemStyle={{
-                color: "#77faff",
+                color: "#7795c0",
                 fontSize: "0.875rem",
                 padding: "2px 0",
               }}
