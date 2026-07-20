@@ -5,6 +5,7 @@ import {
   getAttendanceWeeks,
   ensureCurrentWeekExists,
 } from "./services/attendanceService";
+import { getCalendarEvents } from "./services/calendarService";
 
 function App() {
   const [weeks, setWeeks] = useState([]);
@@ -12,7 +13,13 @@ function App() {
   const [planningMode, setPlanningMode] = useState(false);
   const [loading, setLoading] = useState(true);
   const [loadingStage, setLoadingStage] = useState("Initializing...");
+  const [calendarEvents, setCalendarEvents] = useState([]);
   const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+  async function loadCalendarEvents() {
+    const events = await getCalendarEvents();
+    setCalendarEvents(events);
+  }
 
   async function loadDashboard() {
     try {
@@ -29,6 +36,10 @@ function App() {
       setLoadingStage("Preparing dashboard...");
       setWeeks(data);
       setPlannedWeeks(data.map((week) => ({ ...week })));
+      await wait(200);
+
+      setLoadingStage("Loading work calendar...");
+      await loadCalendarEvents();
       await wait(200);
     } finally {
       setLoading(false);
@@ -50,14 +61,20 @@ function App() {
     return forecast(activeWeeks);
   }, [weeks, plannedWeeks, planningMode]);
 
-  const modules = ["Attendance History", "Current Week", "Dashboard"];
+  const modules = [
+    "Attendance History",
+    "Current Week",
+    "Event Calender",
+    "Dashboard",
+  ];
 
   const completed =
     {
       "Initializing...": 0,
       "Loading attendance history...": 1,
       "Ensuring current week...": 2,
-      "Preparing dashboard...": 3,
+      "Loading work calendar...": 3,
+      "Preparing dashboard...": 4,
     }[loadingStage] ?? 0;
 
   if (loading || !dashboard) {
@@ -130,6 +147,8 @@ function App() {
       setPlanningMode={setPlanningMode}
       plannedWeeks={plannedWeeks}
       setPlannedWeeks={setPlannedWeeks}
+      calendarEvents={calendarEvents}
+      reloadCalendarEvents={loadCalendarEvents}
     />
   );
 }

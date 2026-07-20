@@ -27,12 +27,11 @@ export default function DataTable({
     function scrollToCurrent(container, row) {
       if (!container || !row) return;
 
-      const topOffset = 100; // Space below sticky header
+      const topOffset = 1000; // Space below sticky header
 
       container.scrollTop = Math.max(0, row.offsetTop - topOffset);
     }
-    console.log("offsetTop:", mobileCurrentRowRef.current?.offsetTop);
-    console.log("scrollTop before:", mobileContainerRef.current?.scrollTop);
+
     scrollToCurrent(desktopContainerRef.current, desktopCurrentRowRef.current);
     scrollToCurrent(mobileContainerRef.current, mobileCurrentRowRef.current);
   }, []);

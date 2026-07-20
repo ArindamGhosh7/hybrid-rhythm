@@ -10,11 +10,14 @@ export default function buildDashboard(weeks) {
   };
 
   weeks.forEach((week) => {
-    if (week.status === "completed") {
+    if (week.status === "completed" || week.status === "current") {
       summary.totalPresent += Number(week.present_days ?? 0);
       summary.totalEligible += Number(week.eligible_days);
     }
   });
+
+  console.log("totalPresent: " + summary.totalPresent);
+  console.log("totalEligible: " + summary.totalEligible);
 
   summary.currentYTD =
     summary.totalEligible === 0

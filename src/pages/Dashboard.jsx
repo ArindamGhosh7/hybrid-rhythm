@@ -1,6 +1,7 @@
 import KPICards from "../components/KPICards";
 import AnalyticsChart from "../components/AnalyticsChart";
 import DataTable from "../components/DataTable/DataTable";
+import WorkCalendar from "../components/WorkCalendar/WorkCalendar";
 
 export default function Dashboard({
   dashboard,
@@ -12,6 +13,9 @@ export default function Dashboard({
 
   plannedWeeks,
   setPlannedWeeks,
+
+  calendarEvents,
+  reloadCalendarEvents,
 }) {
   return (
     <div className="min-h-screen bg-slate-900 text-slate-100 p-4 md:p-6">
@@ -61,6 +65,10 @@ export default function Dashboard({
           planningMode={planningMode}
           plannedWeeks={plannedWeeks}
           setPlannedWeeks={setPlannedWeeks}
+        />
+        <WorkCalendar
+          calendarEvents={calendarEvents}
+          reloadCalendarEvents={reloadCalendarEvents}
         />
       </div>
     </div>
