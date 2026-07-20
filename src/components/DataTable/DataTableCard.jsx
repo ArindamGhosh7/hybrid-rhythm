@@ -1,16 +1,14 @@
-import StatusBadge from "./StatusBadge";
+import { StatusBadge, YtdBadge, RecommendationBadge } from "./Badges";
 import EditableAttendanceCell from "./EditableAttendanceCell";
 import EditableEligibleCell from "./EditableEligibleCell";
-import YtdBadge from "./YtdBadge";
-import RecommendationBadge from "./RecommendationBadge";
 
 function Field({ label, children }) {
   return (
     <div>
-      <p className="text-[10px] uppercase tracking-wide text-slate-500 mb-1">
+      <p className="text-[10px] uppercase tracking-wide text-slate-500 mb-0.5 leading-none">
         {label}
       </p>
-      <div className="tabular-nums font-medium">{children}</div>
+      <div className="tabular-nums font-medium leading-tight">{children}</div>
     </div>
   );
 }
@@ -23,14 +21,13 @@ export default function DataTableCard({
   onPlanChange,
   currentWeekRef,
 }) {
-  const { week, plannedWeek, actualWeek, isCurrentWeek, isForecast } =
-    rowModel;
+  const { week, plannedWeek, actualWeek, isCurrentWeek, isForecast } = rowModel;
 
   return (
     <div
       ref={isCurrentWeek ? currentWeekRef : null}
       role="listitem"
-      className={`rounded-lg border p-4 space-y-3 ${
+      className={`rounded-lg border p-3 space-y-2 ${
         isCurrentWeek
           ? "bg-emerald-900/20 border-emerald-400/60"
           : isForecast
@@ -55,7 +52,7 @@ export default function DataTableCard({
         </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-x-3 gap-y-3 text-sm">
+      <div className="grid grid-cols-2 gap-x-3 gap-y-2 text-sm">
         <Field label="Present">
           <EditableAttendanceCell
             week={week}
@@ -68,6 +65,7 @@ export default function DataTableCard({
             onSave={onSave}
             onPlanChange={onPlanChange}
             widthClassName="w-full"
+            paddingClassName="py-1"
           />
         </Field>
 
@@ -80,12 +78,13 @@ export default function DataTableCard({
             actualWeek={actualWeek}
             onPlanChange={onPlanChange}
             widthClassName="w-full"
+            paddingClassName="py-1"
           />
         </Field>
 
-        <Field label="Running Present">{week.runningPresent}</Field>
+        {/* <Field label="Running Present">{week.runningPresent}</Field>
 
-        <Field label="Running Eligible">{week.runningEligible}</Field>
+        <Field label="Running Eligible">{week.runningEligible}</Field> */}
 
         <Field label="Projected YTD">
           <YtdBadge value={week.projectedYTD} />

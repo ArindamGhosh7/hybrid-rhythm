@@ -1,8 +1,6 @@
-import StatusBadge from "./StatusBadge";
+import { StatusBadge, YtdBadge, RecommendationBadge } from "./Badges";
 import EditableAttendanceCell from "./EditableAttendanceCell";
 import EditableEligibleCell from "./EditableEligibleCell";
-import YtdBadge from "./YtdBadge";
-import RecommendationBadge from "./RecommendationBadge";
 
 export default function DataTableRow({
   rowModel,
@@ -12,8 +10,7 @@ export default function DataTableRow({
   onPlanChange,
   currentWeekRef,
 }) {
-  const { week, plannedWeek, actualWeek, isCurrentWeek, isForecast } =
-    rowModel;
+  const { week, plannedWeek, actualWeek, isCurrentWeek, isForecast } = rowModel;
 
   return (
     <tr

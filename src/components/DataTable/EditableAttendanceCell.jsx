@@ -1,5 +1,5 @@
 const BASE_INPUT_CLASSES =
-  "rounded border bg-slate-900 py-1.5 text-center tabular-nums focus:outline-none focus:ring-2 disabled:opacity-50 disabled:cursor-not-allowed";
+  "rounded border bg-slate-900 text-center tabular-nums focus:outline-none focus:ring-2 disabled:opacity-50 disabled:cursor-not-allowed";
 
 export default function EditableAttendanceCell({
   week,
@@ -12,6 +12,7 @@ export default function EditableAttendanceCell({
   onSave,
   onPlanChange,
   widthClassName = "w-20",
+  paddingClassName = "py-1.5",
 }) {
   const weekLabel = `week ending ${week.week_end_date}`;
 
@@ -25,7 +26,7 @@ export default function EditableAttendanceCell({
         disabled={savingId === week.id}
         onBlur={(e) => onSave(week.id, e.target.value)}
         aria-label={`Present days for ${weekLabel}`}
-        className={`${BASE_INPUT_CLASSES} ${widthClassName} border-slate-600 focus:ring-emerald-400 focus:border-emerald-400`}
+        className={`${BASE_INPUT_CLASSES} ${widthClassName} ${paddingClassName} border-slate-600 focus:ring-emerald-400 focus:border-emerald-400`}
       />
     );
   }
@@ -37,11 +38,9 @@ export default function EditableAttendanceCell({
         min={0}
         max={plannedWeek.eligible_days}
         value={plannedWeek.present_days ?? ""}
-        onChange={(e) =>
-          onPlanChange(week.id, "present_days", e.target.value)
-        }
+        onChange={(e) => onPlanChange(week.id, "present_days", e.target.value)}
         aria-label={`Planned present days for ${weekLabel}`}
-        className={`${BASE_INPUT_CLASSES} ${widthClassName} border-indigo-500 focus:ring-indigo-400 focus:border-indigo-400`}
+        className={`${BASE_INPUT_CLASSES} ${widthClassName} ${paddingClassName} border-indigo-500 focus:ring-indigo-400 focus:border-indigo-400`}
       />
     );
   }
