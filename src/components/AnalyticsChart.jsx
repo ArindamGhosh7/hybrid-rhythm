@@ -155,7 +155,7 @@ export default function AnalyticsChart({ data }) {
                 <Cell
                   key={index}
                   fill={
-                    index === forecastIndex
+                    entry.status === "current"
                       ? "#FBBF24" // Current Week
                       : entry.status === "forecast"
                         ? "#64748B" // Future Forecast

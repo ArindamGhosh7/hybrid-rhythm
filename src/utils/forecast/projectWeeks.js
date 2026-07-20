@@ -1,10 +1,23 @@
 // src/utils/forecast/projectWeeks.js
 
 import { DEFAULT_OPTIONS } from "./constants";
+import { isAfter, isSameWeek } from "date-fns";
 
 export default function projectWeeks(weeks, options = DEFAULT_OPTIONS) {
+  const today = new Date();
+
   return weeks.map((week) => {
-    const status = week.present_days === null ? "forecast" : "completed";
+    const weekDate = new Date(week.week_end_date);
+
+    let status;
+
+    if (isSameWeek(weekDate, today, { weekStartsOn: 1 })) {
+      status = "current";
+    } else if (isAfter(weekDate, today)) {
+      status = "forecast";
+    } else {
+      status = "completed";
+    }
 
     return {
       ...week,

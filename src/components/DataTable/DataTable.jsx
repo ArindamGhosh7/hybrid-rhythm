@@ -24,14 +24,17 @@ export default function DataTable({
   const mobileCurrentRowRef = useRef(null);
 
   useEffect(() => {
-    function centerRow(container, row) {
+    function scrollToCurrent(container, row) {
       if (!container || !row) return;
-      container.scrollTop =
-        row.offsetTop - container.clientHeight / 2 + row.clientHeight / 2;
-    }
 
-    centerRow(desktopContainerRef.current, desktopCurrentRowRef.current);
-    centerRow(mobileContainerRef.current, mobileCurrentRowRef.current);
+      const topOffset = 100; // Space below sticky header
+
+      container.scrollTop = Math.max(0, row.offsetTop - topOffset);
+    }
+    console.log("offsetTop:", mobileCurrentRowRef.current?.offsetTop);
+    console.log("scrollTop before:", mobileContainerRef.current?.scrollTop);
+    scrollToCurrent(desktopContainerRef.current, desktopCurrentRowRef.current);
+    scrollToCurrent(mobileContainerRef.current, mobileCurrentRowRef.current);
   }, []);
 
   const rows = useDataTableRows(weeks, plannedWeeks, actualWeeks);
