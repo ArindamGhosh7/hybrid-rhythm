@@ -12,15 +12,15 @@ function App() {
   const [planningMode, setPlanningMode] = useState(false);
   const [loading, setLoading] = useState(true);
   const [loadingStage, setLoadingStage] = useState("Initializing...");
+  const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
   async function loadDashboard() {
     try {
       setLoading(true);
-      const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
       setLoadingStage("Loading attendance history...");
       let data = await getAttendanceWeeks();
-      await wait(200);
+      await wait(300);
 
       setLoadingStage("Ensuring current week...");
       data = await ensureCurrentWeekExists(data);
@@ -29,7 +29,7 @@ function App() {
       setLoadingStage("Preparing dashboard...");
       setWeeks(data);
       setPlannedWeeks(data.map((week) => ({ ...week })));
-      await wait(300);
+      await wait(200);
     } finally {
       setLoading(false);
     }
