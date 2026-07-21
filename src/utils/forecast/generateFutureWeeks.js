@@ -1,6 +1,7 @@
 import { addWeeks } from "date-fns";
+import calculateEligibleDays from "../../utils/dateUtils/calculateEligibleDays";
 
-export default function generateFutureWeeks(weeks) {
+export default function generateFutureWeeks(weeks, calendarEvents) {
   if (!weeks.length) return weeks;
 
   const result = [...weeks];
@@ -20,7 +21,7 @@ export default function generateFutureWeeks(weeks) {
       id: `future-${lastWeek.toISOString().split("T")[0]}`,
       week_end_date: lastWeek.toISOString().split("T")[0],
       present_days: null,
-      eligible_days: 5,
+      eligible_days: calculateEligibleDays(lastWeek, calendarEvents),
     });
   }
 

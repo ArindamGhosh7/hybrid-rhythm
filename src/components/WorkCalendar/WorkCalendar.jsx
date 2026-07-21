@@ -4,6 +4,7 @@ import "react-day-picker/dist/style.css";
 
 import EventDialog from "./EventDialog";
 import DayCell from "./DayCell";
+import formatLocalDate from "../../utils/dateUtils/formatLocalDate";
 
 export default function WorkCalendar({ calendarEvents, reloadCalendarEvents }) {
   const [selectedDate, setSelectedDate] = useState(null);
@@ -38,13 +39,12 @@ export default function WorkCalendar({ calendarEvents, reloadCalendarEvents }) {
   const selectedEvent = useMemo(() => {
     if (!selectedDate) return null;
 
-    const date = selectedDate.toISOString().split("T")[0];
-
+    const date = formatLocalDate(selectedDate);
     return calendarEvents.find((e) => e.event_date === date) || null;
   }, [selectedDate, calendarEvents]);
 
   function getEvent(date) {
-    const iso = date.toISOString().split("T")[0];
+    const iso = formatLocalDate(date);
 
     return calendarEvents.find((e) => e.event_date === iso) || null;
   }
@@ -75,9 +75,9 @@ export default function WorkCalendar({ calendarEvents, reloadCalendarEvents }) {
             months: "flex justify-center",
             month: "space-y-5",
             caption:
-              "flex justify-center py-2 relative items-center text-lg font-semibold text-white",
+              "relative flex items-center justify-center text-lg font-semibold text-white",
             caption_label: "text-white",
-            nav: "flex items-center gap-2",
+            nav: "absolute right-0 flex gap-2",
             nav_button:
               "h-8 w-8 rounded-md border border-slate-700 bg-slate-800 hover:bg-slate-700 text-white",
             table: "w-full border-collapse",

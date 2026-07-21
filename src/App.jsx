@@ -58,7 +58,7 @@ function App() {
       return null;
     }
 
-    return forecast(activeWeeks);
+    return forecast(activeWeeks, calendarEvents);
   }, [weeks, plannedWeeks, planningMode]);
 
   const modules = [

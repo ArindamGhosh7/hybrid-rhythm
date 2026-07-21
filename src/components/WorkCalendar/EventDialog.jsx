@@ -4,6 +4,7 @@ import {
   deleteCalendarEventByDate,
   upsertCalendarEvent,
 } from "../../services/calendarService";
+import formatLocalDate from "../../utils/dateUtils/formatLocalDate";
 
 export default function EventDialog({
   open,
@@ -33,7 +34,7 @@ export default function EventDialog({
     year: "numeric",
   });
 
-  const eventDate = selectedDate.toISOString().split("T")[0];
+  const eventDate = formatLocalDate(selectedDate);
 
   async function handleSave() {
     if (!eventType) {

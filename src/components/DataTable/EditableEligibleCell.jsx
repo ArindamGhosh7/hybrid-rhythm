@@ -16,8 +16,6 @@ export default function EditableEligibleCell({
       <input
         type="number"
         min={0}
-        value={plannedWeek.eligible_days}
-        onChange={(e) => onPlanChange(week.id, "eligible_days", e.target.value)}
         aria-label={`Planned eligible days for week ending ${week.week_end_date}`}
         className={`${BASE_INPUT_CLASSES} ${widthClassName} ${paddingClassName}`}
       />

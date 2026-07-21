@@ -16,9 +16,6 @@ export default function buildDashboard(weeks) {
     }
   });
 
-  console.log("totalPresent: " + summary.totalPresent);
-  console.log("totalEligible: " + summary.totalEligible);
-
   summary.currentYTD =
     summary.totalEligible === 0
       ? 0
