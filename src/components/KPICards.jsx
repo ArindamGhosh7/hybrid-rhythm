@@ -39,13 +39,71 @@ function Card({
   valueColor = "text-white",
 }) {
   return (
-    <div className="bg-slate-800 border border-slate-700 rounded-xl p-4 md:p-5 shadow-sm">
-      <p className="text-[10px] md:text-xs uppercase tracking-wider text-slate-400 font-semibold">
+    // <div className="bg-slate-800 border border-slate-700 rounded-xl p-4 md:p-5 shadow-sm">
+    //   <p className="text-[10px] md:text-xs uppercase tracking-wider text-slate-400 font-semibold">
+    //     {title}
+    //   </p>
+
+    //   <div className="mt-2 md:mt-3">
+    //     <div className={`text-2xl md:text-3xl font-bold ${valueColor}`}>
+    //       {value}
+
+    //       {suffix && (
+    //         <span className="text-base md:text-lg ml-2 font-normal text-slate-400">
+    //           {suffix}
+    //         </span>
+    //       )}
+    //     </div>
+
+    //     {badge && (
+    //       <span
+    //         className={`inline-block mt-3 px-2 py-1 rounded text-xs font-semibold ${badgeClass}`}
+    //       >
+    //         {badge}
+    //       </span>
+    //     )}
+
+    //     {subtitle && (
+    //       <p className="text-xs md:text-sm text-slate-400 mt-2 md:mt-3 leading-5 md:leading-6">
+    //         {subtitle}
+    //       </p>
+    //     )}
+    //   </div>
+    // </div>
+
+    <div
+      className="
+      animate-card
+      group
+      relative
+      overflow-hidden
+      rounded-xl
+      border border-slate-700
+      bg-slate-800
+      p-4 md:p-5
+      shadow-sm
+
+      transition-all
+      duration-300
+
+     border-emerald-500/20
+    shadow-xl
+    shadow-emerald-500/5
+
+    md:hover:-translate-y-1
+    md:hover:border-emerald-500/40
+    md:hover:shadow-2xl
+    md:hover:shadow-emerald-500/10
+    "
+    >
+      <p className="relative z-10 text-[10px] md:text-xs uppercase tracking-wider text-slate-400 font-semibold transition-colors duration-300 group-hover:text-slate-300">
         {title}
       </p>
 
-      <div className="mt-2 md:mt-3">
-        <div className={`text-2xl md:text-3xl font-bold ${valueColor}`}>
+      <div className="relative z-10 mt-2 md:mt-3">
+        <div
+          className={`text-2xl md:text-3xl font-bold transition-transform duration-300 group-hover:scale-105 ${valueColor}`}
+        >
           {value}
 
           {suffix && (
@@ -57,7 +115,7 @@ function Card({
 
         {badge && (
           <span
-            className={`inline-block mt-3 px-2 py-1 rounded text-xs font-semibold ${badgeClass}`}
+            className={`inline-block mt-3 px-2 py-1 rounded text-xs font-semibold animate-badge-in ${badgeClass}`}
           >
             {badge}
           </span>

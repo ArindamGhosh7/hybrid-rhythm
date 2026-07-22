@@ -12,7 +12,7 @@ function App() {
   const [plannedWeeks, setPlannedWeeks] = useState([]);
   const [planningMode, setPlanningMode] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [loadingStage, setLoadingStage] = useState("Initializing...");
+  const [loadingStep, setLoadingStep] = useState(0);
   const [calendarEvents, setCalendarEvents] = useState([]);
   const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -25,22 +25,26 @@ function App() {
     try {
       setLoading(true);
 
-      setLoadingStage("Loading attendance history...");
+      // Attendance History
+      setLoadingStep(0);
       let data = await getAttendanceWeeks();
-      await wait(300);
+      await wait(400);
 
-      setLoadingStage("Ensuring current week...");
+      // Current Week
+      setLoadingStep(1);
       data = await ensureCurrentWeekExists(data);
-      await wait(200);
+      await wait(400);
 
-      setLoadingStage("Preparing dashboard...");
+      // Event Calendar
+      setLoadingStep(2);
+      await loadCalendarEvents();
+      await wait(400);
+
+      // Dashboard
+      setLoadingStep(3);
       setWeeks(data);
       setPlannedWeeks(data.map((week) => ({ ...week })));
-      await wait(200);
-
-      setLoadingStage("Loading work calendar...");
-      await loadCalendarEvents();
-      await wait(200);
+      await wait(400);
     } finally {
       setLoading(false);
     }
@@ -58,25 +62,22 @@ function App() {
       return null;
     }
 
-    console.log("Forecast calendarEvents:", calendarEvents);
     return forecast(activeWeeks, calendarEvents);
   }, [weeks, plannedWeeks, planningMode, calendarEvents]);
+
+  const loadingMessages = [
+    "Loading attendance history...",
+    "Loading current week...",
+    "Loading work calendar...",
+    "Preparing dashboard...",
+  ];
 
   const modules = [
     "Attendance History",
     "Current Week",
-    "Event Calender",
+    "Event Calendar",
     "Dashboard",
   ];
-
-  const completed =
-    {
-      "Initializing...": 0,
-      "Loading attendance history...": 1,
-      "Ensuring current week...": 2,
-      "Loading work calendar...": 3,
-      "Preparing dashboard...": 4,
-    }[loadingStage] ?? 0;
 
   if (loading || !dashboard) {
     return (
@@ -111,9 +112,9 @@ function App() {
               >
                 <span className="text-slate-300">{module}</span>
 
-                {index < completed ? (
+                {index < loadingStep ? (
                   <span className="text-emerald-400 text-lg">✓</span>
-                ) : index === completed ? (
+                ) : index === loadingStep ? (
                   <div className="w-5 h-5 rounded-full border-2 border-slate-600 border-t-emerald-400 animate-spin"></div>
                 ) : (
                   <span className="text-slate-600">○</span>
@@ -125,13 +126,13 @@ function App() {
               <div
                 className="h-full bg-gradient-to-r from-emerald-500 to-emerald-300 rounded-full transition-all duration-500"
                 style={{
-                  width: `${(completed / modules.length) * 100}%`,
+                  width: `${((loadingStep + 1) / modules.length) * 100}%`,
                 }}
               />
             </div>
 
             <p className="mt-3 text-center text-xs text-emerald-400 font-medium">
-              {loadingStage}
+              {loadingMessages[loadingStep]}
             </p>
           </div>
         </div>

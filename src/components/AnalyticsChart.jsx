@@ -121,6 +121,7 @@ export default function AnalyticsChart({ data }) {
                 backgroundColor: "#1E293B",
                 borderColor: "#334155",
                 borderRadius: "0.75rem",
+                boxShadow: "0 8px 24px rgba(0,0,0,.35)",
               }}
               labelStyle={{
                 color: "#FFFFFF",
@@ -169,7 +170,7 @@ export default function AnalyticsChart({ data }) {
               yAxisId="percent"
               dataKey="ytd"
               stroke="#34D399"
-              strokeWidth={3}
+              strokeWidth={2.5}
               name="Projected YTD"
               dot={{ r: isMobile ? 2 : 4 }}
               activeDot={{ r: 5 }}
