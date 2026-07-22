@@ -11,8 +11,7 @@ export function forecast(rawWeeks, calendarEvents) {
     eligible_days: calculateEligibleDays(week.week_end_date, calendarEvents),
   }));
 
-  console.log(weeks);
-  const allWeeks = generateFutureWeeks(rawWeeks, calendarEvents);
+  const allWeeks = generateFutureWeeks(weeks, calendarEvents);
   const projected = projectWeeks(allWeeks);
   const totals = calculateRunningTotals(projected);
   const recovered = recoverTarget(totals);

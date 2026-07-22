@@ -1,10 +1,9 @@
 import { startOfWeek, endOfWeek, isWithinInterval } from "date-fns";
 
-export default function calculateEligibleDays(
-  weekEndingDate,
-  calendarEvents = [],
-) {
-  const weekEnd = new Date(weekEndingDate);
+export default function calculateEligibleDays(weekEndingDate, calendarEvents) {
+  const [y, m, d] = weekEndingDate.split("-").map(Number);
+
+  const weekEnd = new Date(y, m - 1, d);
 
   const weekStart = startOfWeek(weekEnd, {
     weekStartsOn: 1, // Monday
@@ -19,13 +18,13 @@ export default function calculateEligibleDays(
 
     const date = new Date(y, m - 1, d);
 
-    return isWithinInterval(date, {
+    const within = isWithinInterval(date, {
       start: weekStart,
       end: weekFinish,
     });
-  }).length;
 
-  console.log(excludedDays);
+    return within;
+  }).length;
 
   return Math.max(0, 5 - excludedDays);
 }

@@ -81,8 +81,8 @@ export default function DataTableCard({
             paddingClassName="py-1"
           />
         </Field>
-
-        {/* <Field label="Running Present">{week.runningPresent}</Field>
+        {/* 
+        <Field label="Running Present">{week.runningPresent}</Field>
 
         <Field label="Running Eligible">{week.runningEligible}</Field> */}
 

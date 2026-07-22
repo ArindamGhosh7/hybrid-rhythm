@@ -58,8 +58,9 @@ function App() {
       return null;
     }
 
+    console.log("Forecast calendarEvents:", calendarEvents);
     return forecast(activeWeeks, calendarEvents);
-  }, [weeks, plannedWeeks, planningMode]);
+  }, [weeks, plannedWeeks, planningMode, calendarEvents]);
 
   const modules = [
     "Attendance History",

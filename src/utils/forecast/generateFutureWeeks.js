@@ -11,7 +11,6 @@ export default function generateFutureWeeks(weeks, calendarEvents) {
   const year = lastWeek.getFullYear();
 
   while (true) {
-    // Move exactly one week forward (Friday → Friday)
     lastWeek = addWeeks(lastWeek, 1);
 
     if (lastWeek.getFullYear() !== year) {
@@ -22,7 +21,10 @@ export default function generateFutureWeeks(weeks, calendarEvents) {
       id: `future-${formatLocalDate(lastWeek)}`,
       week_end_date: formatLocalDate(lastWeek),
       present_days: null,
-      eligible_days: calculateEligibleDays(lastWeek, calendarEvents),
+      eligible_days: calculateEligibleDays(
+        formatLocalDate(lastWeek),
+        calendarEvents,
+      ),
     });
   }
 

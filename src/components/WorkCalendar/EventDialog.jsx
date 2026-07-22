@@ -14,6 +14,8 @@ export default function EventDialog({
   reloadCalendarEvents,
 }) {
   const [eventType, setEventType] = useState("");
+  const [action, setAction] = useState(null);
+  const isProcessing = action !== null;
 
   useEffect(() => {
     if (!open) return;
@@ -35,7 +37,6 @@ export default function EventDialog({
   });
 
   const eventDate = formatLocalDate(selectedDate);
-
   async function handleSave() {
     if (!eventType) {
       alert("Please select an event type.");
@@ -43,6 +44,8 @@ export default function EventDialog({
     }
 
     try {
+      setAction("save");
+
       await upsertCalendarEvent(eventDate, eventType);
 
       await reloadCalendarEvents();
@@ -51,6 +54,8 @@ export default function EventDialog({
     } catch (err) {
       console.error(err);
       alert("Unable to save calendar event.");
+    } finally {
+      setAction(null);
     }
   }
 
@@ -62,6 +67,8 @@ export default function EventDialog({
     }
 
     try {
+      setAction("delete");
+
       await deleteCalendarEventByDate(eventDate);
 
       await reloadCalendarEvents();
@@ -70,6 +77,8 @@ export default function EventDialog({
     } catch (err) {
       console.error(err);
       alert("Unable to delete calendar event.");
+    } finally {
+      setAction(null);
     }
   }
 
@@ -137,27 +146,106 @@ export default function EventDialog({
           <div>
             {event && (
               <button
+                disabled={isProcessing}
                 onClick={handleDelete}
-                className="rounded-lg bg-red-600 px-4 py-2 text-white transition hover:bg-red-700"
+                className="
+    rounded-lg bg-red-600 px-4 py-2
+    text-white
+    transition-all duration-150
+    hover:bg-red-700
+    active:scale-95 active:translate-y-px
+    disabled:opacity-60
+    disabled:cursor-not-allowed
+    min-w-[110px]
+  "
               >
-                Delete
+                {action === "delete" ? (
+                  <span className="flex items-center justify-center gap-2">
+                    <svg
+                      className="h-4 w-4 animate-spin"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                    >
+                      <circle
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                        className="opacity-25"
+                      />
+                      <path
+                        fill="currentColor"
+                        className="opacity-75"
+                        d="M12 2a10 10 0 0 1 10 10h-4a6 6 0 0 0-6-6V2z"
+                      />
+                    </svg>
+                    Deleting...
+                  </span>
+                ) : (
+                  "Delete"
+                )}
               </button>
             )}
           </div>
 
           <div className="flex gap-3">
             <button
+              disabled={isProcessing}
               onClick={onClose}
-              className="rounded-lg border border-slate-600 px-4 py-2 text-slate-300 transition hover:bg-slate-800"
+              className="
+    rounded-lg border border-slate-600 px-4 py-2
+    text-slate-300
+    transition-all duration-150
+    hover:bg-slate-800
+    active:scale-95 active:translate-y-px
+    disabled:opacity-50
+    disabled:cursor-not-allowed
+  "
             >
               Cancel
             </button>
 
             <button
+              disabled={isProcessing}
               onClick={handleSave}
-              className="rounded-lg bg-emerald-600 px-4 py-2 font-medium text-white transition hover:bg-emerald-700"
+              className="
+    rounded-lg bg-emerald-600 px-4 py-2
+    font-medium text-white
+    transition-all duration-150
+    hover:bg-emerald-700
+    active:scale-95 active:translate-y-px
+    disabled:opacity-60
+    disabled:cursor-not-allowed
+    min-w-[110px]
+  "
             >
-              Save
+              {action === "save" ? (
+                <span className="flex items-center justify-center gap-2">
+                  <svg
+                    className="h-4 w-4 animate-spin"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                  >
+                    <circle
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                      className="opacity-25"
+                    />
+                    <path
+                      fill="currentColor"
+                      className="opacity-75"
+                      d="M12 2a10 10 0 0 1 10 10h-4a6 6 0 0 0-6-6V2z"
+                    />
+                  </svg>
+                  Saving...
+                </span>
+              ) : (
+                "Save"
+              )}
             </button>
           </div>
         </div>
