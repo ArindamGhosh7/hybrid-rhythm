@@ -3,7 +3,7 @@ import { DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css";
 
 import EventDialog from "./EventDialog";
-import DayCell from "./DayCell";
+
 import formatLocalDate from "../../utils/dateUtils/formatLocalDate";
 
 export default function WorkCalendar({ calendarEvents, reloadCalendarEvents }) {
@@ -11,18 +11,23 @@ export default function WorkCalendar({ calendarEvents, reloadCalendarEvents }) {
   const [dialogOpen, setDialogOpen] = useState(false);
 
   const modifiers = useMemo(() => {
+    const toLocalDate = (dateString) => {
+      const [year, month, day] = dateString.split("-").map(Number);
+      return new Date(year, month - 1, day);
+    };
+
     return {
       holiday: calendarEvents
         .filter((e) => e.event_type === "HOLIDAY")
-        .map((e) => new Date(e.event_date)),
+        .map((e) => toLocalDate(e.event_date)),
 
       leave: calendarEvents
         .filter((e) => e.event_type === "LEAVE")
-        .map((e) => new Date(e.event_date)),
+        .map((e) => toLocalDate(e.event_date)),
 
       wfh: calendarEvents
         .filter((e) => e.event_type === "WFH")
-        .map((e) => new Date(e.event_date)),
+        .map((e) => toLocalDate(e.event_date)),
     };
   }, [calendarEvents]);
 
@@ -66,10 +71,14 @@ export default function WorkCalendar({ calendarEvents, reloadCalendarEvents }) {
           selected={selectedDate}
           onSelect={handleDayClick}
           modifiers={modifiers}
-          components={{
-            DayContent: ({ date }) => (
-              <DayCell date={date} eventType={getEvent(date)?.event_type} />
-            ),
+          modifiersClassNames={{
+            holiday:
+              "border-b-[3px] border-[#e07a5f] bg-[#e07a5f]/15 text-white rounded-lg",
+
+            leave:
+              "border-b-[3px] border-[#ffd166] bg-[#ffd166]/15 text-white rounded-lg",
+
+            wfh: "border-b-[3px] border-[#9381ff] bg-[#9381ff]/15 text-white rounded-lg",
           }}
           classNames={{
             months: "flex justify-center",
@@ -79,14 +88,15 @@ export default function WorkCalendar({ calendarEvents, reloadCalendarEvents }) {
             caption_label: "text-white",
             nav: "absolute right-0 flex gap-2",
             nav_button:
-              "h-8 w-8 rounded-md border border-slate-700 bg-slate-800 hover:bg-slate-700 text-white",
+              "h-8 w-8 rounded-md border border-slate-700 bg-slate-800 hover:bg-slate-700 transition-colors",
+            chevron: "fill-[#8d99ae] stroke-[#8d99ae]",
             table: "w-full border-collapse",
             head_row: "",
             head_cell: "text-slate-400 font-medium text-sm p-2",
             row: "",
             cell: "h-12 w-12 text-center align-middle",
             day: "h-10 w-10 rounded-lg transition hover:bg-slate-700 text-white",
-            selected: "bg-emerald-500 text-slate-900",
+            selected: "ring-2 ring-emerald-400 bg-emerald-500 text-slate-900",
             today: "border border-emerald-500",
             outside: "text-slate-600",
           }}
@@ -94,17 +104,17 @@ export default function WorkCalendar({ calendarEvents, reloadCalendarEvents }) {
 
         <div className="mt-8 flex flex-wrap gap-6 text-sm">
           <div className="flex items-center gap-2">
-            <div className="h-4 w-4 rounded bg-red-600"></div>
+            <div className="h-4 w-4 rounded bg-[#e07a5f]"></div>
             <span className="text-slate-300">Holiday</span>
           </div>
 
           <div className="flex items-center gap-2">
-            <div className="h-4 w-4 rounded bg-amber-500"></div>
+            <div className="h-4 w-4 rounded bg-[#ffd166]"></div>
             <span className="text-slate-300">Leave</span>
           </div>
 
           <div className="flex items-center gap-2">
-            <div className="h-4 w-4 rounded bg-blue-600"></div>
+            <div className="h-4 w-4 rounded bg-[#9381ff]"></div>
             <span className="text-slate-300">Work From Home</span>
           </div>
         </div>

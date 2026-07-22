@@ -1,4 +1,5 @@
 import { addWeeks } from "date-fns";
+import formatLocalDate from "../../utils/dateUtils/formatLocalDate";
 import calculateEligibleDays from "../../utils/dateUtils/calculateEligibleDays";
 
 export default function generateFutureWeeks(weeks, calendarEvents) {
@@ -18,8 +19,8 @@ export default function generateFutureWeeks(weeks, calendarEvents) {
     }
 
     result.push({
-      id: `future-${lastWeek.toISOString().split("T")[0]}`,
-      week_end_date: lastWeek.toISOString().split("T")[0],
+      id: `future-${formatLocalDate(lastWeek)}`,
+      week_end_date: formatLocalDate(lastWeek),
       present_days: null,
       eligible_days: calculateEligibleDays(lastWeek, calendarEvents),
     });

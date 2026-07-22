@@ -15,13 +15,17 @@ export default function calculateEligibleDays(
   });
 
   const excludedDays = calendarEvents.filter((event) => {
-    const date = new Date(event.event_date);
+    const [y, m, d] = event.event_date.split("-").map(Number);
+
+    const date = new Date(y, m - 1, d);
 
     return isWithinInterval(date, {
       start: weekStart,
       end: weekFinish,
     });
   }).length;
+
+  console.log(excludedDays);
 
   return Math.max(0, 5 - excludedDays);
 }

@@ -55,7 +55,7 @@ export default function DataTableRow({
         />
       </td>
 
-      <td className="px-4 md:px-6 py-4 text-center">
+      {/* <td className="px-4 md:px-6 py-4 text-center">
         <EditableEligibleCell
           week={week}
           isForecast={isForecast}
@@ -64,7 +64,7 @@ export default function DataTableRow({
           actualWeek={actualWeek}
           onPlanChange={onPlanChange}
         />
-      </td>
+      </td> */}
 
       <td className="px-4 md:px-6 py-4 text-center tabular-nums">
         {week.runningPresent}
