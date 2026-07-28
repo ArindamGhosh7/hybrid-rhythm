@@ -39,38 +39,6 @@ function Card({
   valueColor = "text-white",
 }) {
   return (
-    // <div className="bg-slate-800 border border-slate-700 rounded-xl p-4 md:p-5 shadow-sm">
-    //   <p className="text-[10px] md:text-xs uppercase tracking-wider text-slate-400 font-semibold">
-    //     {title}
-    //   </p>
-
-    //   <div className="mt-2 md:mt-3">
-    //     <div className={`text-2xl md:text-3xl font-bold ${valueColor}`}>
-    //       {value}
-
-    //       {suffix && (
-    //         <span className="text-base md:text-lg ml-2 font-normal text-slate-400">
-    //           {suffix}
-    //         </span>
-    //       )}
-    //     </div>
-
-    //     {badge && (
-    //       <span
-    //         className={`inline-block mt-3 px-2 py-1 rounded text-xs font-semibold ${badgeClass}`}
-    //       >
-    //         {badge}
-    //       </span>
-    //     )}
-
-    //     {subtitle && (
-    //       <p className="text-xs md:text-sm text-slate-400 mt-2 md:mt-3 leading-5 md:leading-6">
-    //         {subtitle}
-    //       </p>
-    //     )}
-    //   </div>
-    // </div>
-
     <div
       className="
       animate-card

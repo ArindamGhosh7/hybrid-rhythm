@@ -1,6 +1,5 @@
 import { StatusBadge, YtdBadge, RecommendationBadge } from "./Badges";
-import EditableAttendanceCell from "./EditableAttendanceCell";
-import EditableEligibleCell from "./EditableEligibleCell";
+import EditablePresentCell from "./EditablePresentCell";
 
 function Field({ label, children }) {
   return (
@@ -54,7 +53,7 @@ export default function DataTableCard({
 
       <div className="grid grid-cols-2 gap-x-3 gap-y-2 text-sm">
         <Field label="Present">
-          <EditableAttendanceCell
+          <EditablePresentCell
             week={week}
             isCurrentWeek={isCurrentWeek}
             isForecast={isForecast}
@@ -69,7 +68,7 @@ export default function DataTableCard({
         </Field>
 
         <Field label="Eligible">
-          <EditableEligibleCell week={week} />
+          <span className="tabular-nums">{week.eligible_days}</span>
         </Field>
         {/* 
         <Field label="Running Present">{week.runningPresent}</Field>

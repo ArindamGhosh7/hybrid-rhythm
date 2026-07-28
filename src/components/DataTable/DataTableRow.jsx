@@ -1,6 +1,5 @@
 import { StatusBadge, YtdBadge, RecommendationBadge } from "./Badges";
-import EditableAttendanceCell from "./EditableAttendanceCell";
-import EditableEligibleCell from "./EditableEligibleCell";
+import EditablePresentCell from "./EditablePresentCell";
 
 export default function DataTableRow({
   rowModel,
@@ -42,7 +41,7 @@ export default function DataTableRow({
       </td>
 
       <td className="px-4 md:px-6 py-4 text-center">
-        <EditableAttendanceCell
+        <EditablePresentCell
           week={week}
           isCurrentWeek={isCurrentWeek}
           isForecast={isForecast}
@@ -55,7 +54,7 @@ export default function DataTableRow({
       </td>
 
       <td className="px-4 md:px-6 py-4 text-center">
-        <EditableEligibleCell week={week} />
+        <span className="tabular-nums">{week.eligible_days}</span>
       </td>
 
       <td className="px-4 md:px-6 py-4 text-center tabular-nums">

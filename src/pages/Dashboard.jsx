@@ -27,35 +27,35 @@ export default function Dashboard({
 
             <p className="text-slate-400 mt-1">Attendance Planning Dashboard</p>
           </div>
-
-          <div className="mt-4 md:mt-0 flex items-center gap-3 self-start md:self-auto">
-            <span
-              className={`text-sm font-medium ${
-                planningMode ? "text-emerald-400" : "text-slate-400"
-              }`}
-            >
-              Planning Mode
-            </span>
-
-            <button
-              type="button"
-              onClick={() => setPlanningMode(!planningMode)}
-              className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors duration-200 ${
-                planningMode ? "bg-emerald-500" : "bg-slate-600"
-              }`}
-            >
-              <span
-                className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform duration-200 ${
-                  planningMode ? "translate-x-6" : "translate-x-1"
-                }`}
-              />
-            </button>
-          </div>
         </header>
 
         <KPICards summary={dashboard.summary} />
 
         <AnalyticsChart data={dashboard.chartData} />
+
+        <div className="mt-4 md:mt-0 flex items-center gap-3 self-start md:self-auto">
+          <span
+            className={`text-sm font-medium ${
+              planningMode ? "text-emerald-400" : "text-slate-400"
+            }`}
+          >
+            Planning Mode
+          </span>
+
+          <button
+            type="button"
+            onClick={() => setPlanningMode(!planningMode)}
+            className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors duration-200 ${
+              planningMode ? "bg-emerald-500" : "bg-slate-600"
+            }`}
+          >
+            <span
+              className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform duration-200 ${
+                planningMode ? "translate-x-6" : "translate-x-1"
+              }`}
+            />
+          </button>
+        </div>
 
         <DataTable
           weeks={dashboard.weeks}
