@@ -5,7 +5,6 @@ import WorkCalendar from "../components/WorkCalendar/WorkCalendar";
 
 export default function Dashboard({
   dashboard,
-  weeks,
   reload,
 
   planningMode,
@@ -60,7 +59,6 @@ export default function Dashboard({
 
         <DataTable
           weeks={dashboard.weeks}
-          actualWeeks={weeks}
           reload={reload}
           planningMode={planningMode}
           plannedWeeks={plannedWeeks}

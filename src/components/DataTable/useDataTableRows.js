@@ -18,10 +18,9 @@ function byId(list) {
  * source arrays, so re-renders triggered by unrelated state (e.g. `savingId`
  * while a save is in flight) don't rebuild it.
  */
-export default function useDataTableRows(weeks, plannedWeeks, actualWeeks) {
+export default function useDataTableRows(weeks, plannedWeeks) {
   return useMemo(() => {
     const plannedById = byId(plannedWeeks);
-    const actualById = byId(actualWeeks);
     const now = new Date();
 
     return weeks.map((week) => ({
@@ -31,7 +30,6 @@ export default function useDataTableRows(weeks, plannedWeeks, actualWeeks) {
       }),
       isForecast: week.status === "forecast",
       plannedWeek: plannedById.get(week.id) || week,
-      actualWeek: actualById.get(week.id) || week,
     }));
-  }, [weeks, plannedWeeks, actualWeeks]);
+  }, [weeks, plannedWeeks]);
 }

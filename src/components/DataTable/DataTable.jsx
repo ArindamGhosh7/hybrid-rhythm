@@ -7,17 +7,12 @@ import DataTableCard from "./DataTableCard";
 
 export default function DataTable({
   weeks,
-  actualWeeks,
   reload,
   planningMode,
   plannedWeeks,
   setPlannedWeeks,
 }) {
   const [savingId, setSavingId] = useState(null);
-
-  // Two independent scroll containers (desktop table / mobile card list) -
-  // only one is visible at a time via CSS, but both exist in the DOM, so
-  // each needs its own container + current-week ref.
   const desktopContainerRef = useRef(null);
   const desktopCurrentRowRef = useRef(null);
   const mobileContainerRef = useRef(null);
@@ -36,7 +31,7 @@ export default function DataTable({
     scrollToCurrent(mobileContainerRef.current, mobileCurrentRowRef.current);
   }, []);
 
-  const rows = useDataTableRows(weeks, plannedWeeks, actualWeeks);
+  const rows = useDataTableRows(weeks, plannedWeeks);
 
   const saveWeek = useCallback(
     async (id, value) => {

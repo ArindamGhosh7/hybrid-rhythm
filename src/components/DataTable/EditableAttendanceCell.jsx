@@ -7,7 +7,6 @@ export default function EditableAttendanceCell({
   isForecast,
   planningMode,
   plannedWeek,
-  actualWeek,
   savingId,
   onSave,
   onPlanChange,
@@ -21,8 +20,8 @@ export default function EditableAttendanceCell({
       <input
         type="number"
         min={0}
-        max={actualWeek.eligible_days}
-        defaultValue={actualWeek.present_days ?? ""}
+        max={week.eligible_days}
+        defaultValue={week.present_days ?? ""}
         disabled={savingId === week.id}
         onBlur={(e) => onSave(week.id, e.target.value)}
         aria-label={`Present days for ${weekLabel}`}

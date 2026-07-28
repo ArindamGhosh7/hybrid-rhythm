@@ -48,23 +48,15 @@ export default function DataTableRow({
           isForecast={isForecast}
           planningMode={planningMode}
           plannedWeek={plannedWeek}
-          actualWeek={actualWeek}
           savingId={savingId}
           onSave={onSave}
           onPlanChange={onPlanChange}
         />
       </td>
 
-      {/* <td className="px-4 md:px-6 py-4 text-center">
-        <EditableEligibleCell
-          week={week}
-          isForecast={isForecast}
-          planningMode={planningMode}
-          plannedWeek={plannedWeek}
-          actualWeek={actualWeek}
-          onPlanChange={onPlanChange}
-        />
-      </td> */}
+      <td className="px-4 md:px-6 py-4 text-center">
+        <EditableEligibleCell week={week} />
+      </td>
 
       <td className="px-4 md:px-6 py-4 text-center tabular-nums">
         {week.runningPresent}

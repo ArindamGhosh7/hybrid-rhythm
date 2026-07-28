@@ -60,7 +60,6 @@ export default function DataTableCard({
             isForecast={isForecast}
             planningMode={planningMode}
             plannedWeek={plannedWeek}
-            actualWeek={actualWeek}
             savingId={savingId}
             onSave={onSave}
             onPlanChange={onPlanChange}
@@ -70,16 +69,7 @@ export default function DataTableCard({
         </Field>
 
         <Field label="Eligible">
-          <EditableEligibleCell
-            week={week}
-            isForecast={isForecast}
-            planningMode={planningMode}
-            plannedWeek={plannedWeek}
-            actualWeek={actualWeek}
-            onPlanChange={onPlanChange}
-            widthClassName="w-full"
-            paddingClassName="py-1"
-          />
+          <EditableEligibleCell week={week} />
         </Field>
         {/* 
         <Field label="Running Present">{week.runningPresent}</Field>

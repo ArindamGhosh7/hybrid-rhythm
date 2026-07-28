@@ -19,6 +19,8 @@ function App() {
   async function loadCalendarEvents() {
     const events = await getCalendarEvents();
     setCalendarEvents(events);
+
+    return events;
   }
 
   async function loadDashboard() {
@@ -37,13 +39,17 @@ function App() {
 
       // Event Calendar
       setLoadingStep(2);
-      await loadCalendarEvents();
+      const events = await loadCalendarEvents();
       await wait(400);
 
       // Dashboard
       setLoadingStep(3);
       setWeeks(data);
-      setPlannedWeeks(data.map((week) => ({ ...week })));
+
+      setPlannedWeeks(
+        forecast(data, events).weeks.map((week) => ({ ...week })),
+      );
+
       await wait(400);
     } finally {
       setLoading(false);
@@ -139,11 +145,9 @@ function App() {
       </div>
     );
   }
-
   return (
     <Dashboard
       dashboard={dashboard}
-      weeks={weeks}
       reload={loadDashboard}
       planningMode={planningMode}
       setPlanningMode={setPlanningMode}
