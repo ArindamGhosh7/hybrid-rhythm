@@ -56,27 +56,27 @@ git merge feature/hybrid-strategy
 git push
 ```
 
-## Bug Fix on main Branch
+# Bug Fix on main Branch
 
-# Switch
+## Switch
 
 ```bash
 git checkout main
 ```
 
-# Pull if main is not updated
+## Pull if main is not updated
 
 ```bash
 git pull origin main
 ```
 
-# Go back: if main needs update
+## Go back: if main needs update
 
 ```bash
 git checkout feature/hybrid-strategy
 ```
 
-# Now mearge the main's bug fix with new Branch
+## Now mearge the main's bug fix with new Branch
 
 ```bash
 git merge main
