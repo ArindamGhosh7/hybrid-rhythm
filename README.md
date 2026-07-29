@@ -1,16 +1,119 @@
-# React + Vite
+# Hybrid Rhythm - Git Branch Workflow Guide
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+## Why use branches?
 
-Currently, two official plugins are available:
+- **main** = stable, working, deployable.
+- **feature branch** = safe place to build new features.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+```text
+main
+A──B──C──D──E
 
-## React Compiler
+feature/hybrid-strategy
+A──B──C──D──E──F──G──H
+```
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Start a Feature
 
-## Expanding the Oxlint configuration
+```bash
+git checkout main
+git pull origin main
+git checkout -b feature/hybrid-strategy
+git push -u origin feature/hybrid-strategy
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+## Daily Work
+
+```bash
+git add .
+git commit -m "Describe your changes"
+git push
+```
+
+## Switch Branches
+
+```bash
+git checkout main
+git checkout feature/hybrid-strategy
+```
+
+## Update Your Feature Branch
+
+```bash
+git checkout main
+git pull origin main
+
+git checkout feature/hybrid-strategy
+git merge main
+```
+
+## Finish the Feature
+
+```bash
+git checkout main
+git pull origin main
+git merge feature/hybrid-strategy
+git push
+```
+
+## Delete the Branch (Optional)
+
+Local:
+
+```bash
+git branch -d feature/hybrid-strategy
+```
+
+Remote:
+
+```bash
+git push origin --delete feature/hybrid-strategy
+```
+
+## Cheat Sheet
+
+### Create a new feature
+
+```bash
+git checkout main
+git pull origin main
+git checkout -b feature/new-feature
+git push -u origin feature/new-feature
+```
+
+### Work
+
+```bash
+git add .
+git commit -m "Your commit message"
+git push
+```
+
+### Merge
+
+```bash
+git checkout main
+git pull origin main
+git merge feature/new-feature
+git push
+```
+
+## Suggested Branch Naming
+
+```text
+main
+├── feature/hybrid-strategy
+├── feature/settings
+├── feature/export-report
+├── feature/mobile-ui
+└── hotfix/chart-bug
+```
+
+## Notes
+
+- Keep **main** stable.
+- One feature per branch.
+- Commit often with meaningful messages.
+- Merge into **main** only when the feature is complete.
+- Since you're the only developer, you don't need Pull Requests yet,
+  but they're worth learning later.
