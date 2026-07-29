@@ -9,58 +9,11 @@
 main Branch
 A──B──C──D
 
-feature/hybrid-strategy Branch
-
-               main
-                │
-                ▼
-       A──B──C──D
-                \
-                 \
-                  \
-                   F──G──H
-                     hybrid-strategy
+feature/hybrid-strategy
+A──B──C──D──E──F──G──H
 ```
 
-> main stays stable.
->
-> hybrid-strategy is where you experiment.
->
-> You can break everything on the new branch and main is completely unaffected.
-
-## Step 1 — Check your current branch
-
-Open VS Code Terminal.
-
-```bash
-git branch
-```
-
-Example output:
-
-```bash
-* main
-```
-
-The <code>\*</code> means you're currently on <code>main</code>.
-
-## Step 2 — Make sure everything is committed
-
-Check:
-
-```bash
-git status
-```
-
-If you see this then it is perfect, If not, commit first.
-
-```bash
-nothing to commit, working tree clean
-```
-
-## Step 3 — Create a new branch
-
-Create it:
+## Start a Feature
 
 ```bash
 git checkout -b feature/hybrid-strategy
