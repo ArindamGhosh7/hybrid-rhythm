@@ -5,100 +5,193 @@
 - **main** = stable, working, deployable.
 - **feature branch** = safe place to build new features.
 
-```text
-main
-A──B──C──D──E
+```bash
+main Branch
+A──B──C──D
 
-feature/hybrid-strategy
-A──B──C──D──E──F──G──H
+feature/hybrid-strategy Branch
+
+               main
+                │
+                ▼
+       A──B──C──D
+                \
+                 \
+                  \
+                   F──G──H
+                     hybrid-strategy
 ```
 
-## Start a Feature
+> main stays stable.
+>
+> hybrid-strategy is where you experiment.
+>
+> You can break everything on the new branch and main is completely unaffected.
+
+## Step 1 — Check your current branch
+
+Open VS Code Terminal.
 
 ```bash
-git checkout main
-git pull origin main
+git branch
+```
+
+Example output:
+
+```bash
+* main
+```
+
+The <code>\*</code> means you're currently on <code>main</code>.
+
+## Step 2 — Make sure everything is committed
+
+Check:
+
+```bash
+git status
+```
+
+If you see this then it is perfect, If not, commit first.
+
+```bash
+nothing to commit, working tree clean
+```
+
+## Step 3 — Create a new branch
+
+Create it:
+
+```bash
 git checkout -b feature/hybrid-strategy
+```
+
+## Step 4 — Push the branch to GitHub
+
+The first time:
+
+```bash
 git push -u origin feature/hybrid-strategy
 ```
 
-## Daily Work
+GitHub now has two branches.
 
 ```bash
-git add .
-git commit -m "Describe your changes"
-git push
+- main
+
+- feature/hybrid-strategy
 ```
 
-## Switch Branches
+# What happens now?
+
+## Suppose tomorrow you make 50 commits.
+
+```bash
+feature/hybrid-strategy
+
+Commit 1
+
+Commit 2
+
+Commit 3
+
+...
+
+Commit 50
+```
+
+> Main still looks like yesterday. Nothing changes there.
+
+## Switching branches
+
+Want to go back?
 
 ```bash
 git checkout main
+```
+
+> Suddenly the project becomes exactly how it was before you started the feature.
+
+## Go back:
+
+```bash
 git checkout feature/hybrid-strategy
 ```
 
-## Update Your Feature Branch
+> All your new work is back. It feels like magic the first time.
+
+# Pulling updates
+
+Suppose later you make a bug fix on main.
+
+## Switch:
 
 ```bash
 git checkout main
+```
+
+## Pull:
+
+```bash
 git pull origin main
+```
 
+Now <code>main</code> is updated.
+
+## Go back:
+
+```bash
 git checkout feature/hybrid-strategy
+```
+
+> Your feature branch still has the old version of main.
+
+## If you want those bug fixes too:
+
+```bash
 git merge main
 ```
 
-## Finish the Feature
+## Now your feature branch contains:
+
+> - All feature work
+> - Latest bug fixes
+
+# When the feature is finished
+
+## Go back:
 
 ```bash
 git checkout main
-git pull origin main
+```
+
+## Merge:
+
+```bash
 git merge feature/hybrid-strategy
-git push
 ```
 
-# Bug Fix on main Branch
+> Now: main contains everything
+>
+> Your feature branch can stay there or be deleted.
 
-## Switch
+# Deleting a feature branch
 
-```bash
-git checkout main
-```
-
-## Pull if main is not updated
-
-```bash
-git pull origin main
-```
-
-## Go back: if main needs update
-
-```bash
-git checkout feature/hybrid-strategy
-```
-
-## Now mearge the main's bug fix with new Branch
-
-```bash
-git merge main
-```
-
-## Delete the Branch (Optional)
-
-Local:
+## Locally:
 
 ```bash
 git branch -d feature/hybrid-strategy
 ```
 
-Remote:
+## GitHub:
 
 ```bash
 git push origin --delete feature/hybrid-strategy
 ```
 
-## Cheat Sheet
+# The workflow you'll use 95% of the time
 
-### Create a new feature
+## Start a feature
 
 ```bash
 git checkout main
@@ -107,15 +200,17 @@ git checkout -b feature/new-feature
 git push -u origin feature/new-feature
 ```
 
-### Work
+## During development
 
 ```bash
 git add .
-git commit -m "Your commit message"
+git commit -m "Implement Hybrid Strategy card"
 git push
 ```
 
-### Merge
+Notice that after the initial <code>-u</code> push, you can simply run <code>git push</code> and Git remembers which remote branch to use.
+
+# Finish the feature
 
 ```bash
 git checkout main
@@ -123,23 +218,3 @@ git pull origin main
 git merge feature/new-feature
 git push
 ```
-
-## Suggested Branch Naming
-
-```text
-main
-├── feature/hybrid-strategy
-├── feature/settings
-├── feature/export-report
-├── feature/mobile-ui
-└── hotfix/chart-bug
-```
-
-## Notes
-
-- Keep **main** stable.
-- One feature per branch.
-- Commit often with meaningful messages.
-- Merge into **main** only when the feature is complete.
-- Since you're the only developer, you don't need Pull Requests yet,
-  but they're worth learning later.
