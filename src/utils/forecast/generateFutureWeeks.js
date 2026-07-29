@@ -1,8 +1,13 @@
 import { addWeeks } from "date-fns";
+import { DEFAULT_OPTIONS } from "./constants";
 import formatLocalDate from "../../utils/dateUtils/formatLocalDate";
 import calculateEligibleDays from "../../utils/dateUtils/calculateEligibleDays";
 
-export default function generateFutureWeeks(weeks, calendarEvents) {
+export default function generateFutureWeeks(
+  weeks,
+  calendarEvents,
+  options = DEFAULT_OPTIONS,
+) {
   if (!weeks.length) return weeks;
 
   const result = [...weeks];
@@ -17,14 +22,16 @@ export default function generateFutureWeeks(weeks, calendarEvents) {
       break;
     }
 
+    const eligible_days = calculateEligibleDays(
+      formatLocalDate(lastWeek),
+      calendarEvents,
+    );
+
     result.push({
       id: `future-${formatLocalDate(lastWeek)}`,
       week_end_date: formatLocalDate(lastWeek),
-      present_days: null,
-      eligible_days: calculateEligibleDays(
-        formatLocalDate(lastWeek),
-        calendarEvents,
-      ),
+      present_days: Math.min(options.defaultWeeklyAttendance, eligible_days),
+      eligible_days: eligible_days,
     });
   }
 

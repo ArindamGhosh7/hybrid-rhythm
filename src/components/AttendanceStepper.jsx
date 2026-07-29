@@ -84,6 +84,9 @@ export default function AttendanceStepper({
         text-slate-300
         transition-all
         duration-200
+        hover:border-indigo-400
+        hover:bg-indigo-500
+        hover:text-white
         active:scale-90
         disabled:cursor-not-allowed
         disabled:hover:bg-slate-800
