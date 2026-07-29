@@ -11,6 +11,15 @@ A──B──C──D──E
 
 feature/hybrid-strategy
 A──B──C──D──E──F──G──H
+                     main
+                       │
+                       ▼
+       A──B──C──D──E
+
+                 \
+                  \
+                   F──G──H
+                     hybrid-strategy
 ```
 
 ## Start a Feature
