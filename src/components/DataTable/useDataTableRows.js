@@ -9,15 +9,6 @@ function byId(list) {
   return map;
 }
 
-/**
- * Builds the per-row view model the table/card components render from.
- *
- * `plannedWeeks` and `actualWeeks` are converted into id-keyed Maps once
- * (O(n)) instead of being scanned with `.find()` inside every row on every
- * render (O(n) per row, O(n^2) total). The result is memoized on the three
- * source arrays, so re-renders triggered by unrelated state (e.g. `savingId`
- * while a save is in flight) don't rebuild it.
- */
 export default function useDataTableRows(weeks, plannedWeeks) {
   return useMemo(() => {
     const plannedById = byId(plannedWeeks);

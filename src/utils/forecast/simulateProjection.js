@@ -6,7 +6,10 @@ export default function simulateProjection(weeks) {
     const present =
       week.status === "completed"
         ? Number(week.present_days ?? 0)
-        : Number(week.recommendedPresent);
+        : Math.max(
+            Number(week.present_days ?? 0),
+            Number(week.recommendedPresent ?? 0),
+          );
 
     runningPresent += present;
     runningEligible += Number(week.eligible_days);

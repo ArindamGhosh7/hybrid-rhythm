@@ -13,7 +13,7 @@ import {
   Cell,
 } from "recharts";
 
-export default function AnalyticsChart({ data }) {
+export default function AnalyticsChart({ data, planningMode }) {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
   useEffect(() => {
@@ -171,7 +171,7 @@ export default function AnalyticsChart({ data }) {
               dataKey="ytd"
               stroke="#34D399"
               strokeWidth={2.5}
-              name="Projected YTD"
+              name="Current/Projected YTD"
               dot={{ r: isMobile ? 2 : 4 }}
               activeDot={{ r: 5 }}
             />

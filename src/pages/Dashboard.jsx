@@ -31,7 +31,10 @@ export default function Dashboard({
 
         <KPICards summary={dashboard.summary} />
 
-        <AnalyticsChart data={dashboard.chartData} />
+        <AnalyticsChart
+          data={dashboard.chartData}
+          planningMode={planningMode}
+        />
 
         <div className="mt-4 md:mt-0 flex items-center gap-3 self-start md:self-auto">
           <span

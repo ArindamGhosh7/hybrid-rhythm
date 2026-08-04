@@ -15,6 +15,7 @@ export function forecast(rawWeeks, calendarEvents) {
   const projected = projectWeeks(allWeeks);
   const totals = calculateRunningTotals(projected);
   const recovered = recoverTarget(totals);
-
-  return buildDashboard(recovered);
+  const dashboardData = buildDashboard(recovered);
+  // debugger;
+  return dashboardData;
 }

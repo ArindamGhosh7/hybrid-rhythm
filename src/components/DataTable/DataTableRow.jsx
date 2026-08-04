@@ -9,7 +9,7 @@ export default function DataTableRow({
   onPlanChange,
   currentWeekRef,
 }) {
-  const { week, plannedWeek, actualWeek, isCurrentWeek, isForecast } = rowModel;
+  const { week, plannedWeek, isCurrentWeek, isForecast } = rowModel;
 
   return (
     <tr
@@ -66,7 +66,7 @@ export default function DataTableRow({
       </td>
 
       <td className="px-4 md:px-6 py-4 text-center">
-        <YtdBadge value={week.projectedYTD} />
+        <YtdBadge value={week.runningYTD} />
       </td>
 
       <td className="px-4 md:px-6 py-4 text-center">

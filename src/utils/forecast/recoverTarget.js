@@ -3,41 +3,47 @@
 import simulateProjection from "./simulateProjection";
 import { DEFAULT_OPTIONS } from "./constants";
 
+/**
+ * Calculates remaining work days (Mon-Fri) for a given date.
+ */
+function getRemainingDaysInCurrentWeek(referenceDate = new Date()) {
+  const today = referenceDate.getDay(); // 0=Sun, 1=Mon, ..., 5=Fri, 6=Sat
+  if (today === 0 || today === 6) return 0; // Weekend
+  return 5 - today + 1; // Mon: 5, Tue: 4, Wed: 3, Thu: 2, Fri: 1
+}
+
 export default function recoverTarget(totals, options = DEFAULT_OPTIONS) {
-  let projected = simulateProjection(totals);
+  let simulated = simulateProjection(totals);
+  const targetYTD = options.targetPercentage * 100;
 
-  if (!projected.length) {
-    return projected;
-  }
+  for (let i = 0; i < simulated.length; i++) {
+    const week = simulated[i];
 
-  const lastWeek = () => projected[projected.length - 1];
+    if (week.status === "completed") continue;
 
-  while (lastWeek().projectedYTD < options.targetPercentage * 100) {
-    let changed = false;
-
-    for (let i = 0; i < projected.length; i++) {
-      const week = projected[i];
-
-      if (week.status !== "forecast") continue;
-
-      if (week.recommendedPresent >= week.eligible_days) continue;
-
-      projected[i] = {
-        ...week,
-        recommendedPresent: week.recommendedPresent + 1,
-        extraDays: week.extraDays + 1,
-        requiresRecovery: true,
-      };
-
-      changed = true;
-
-      break;
+    // Calculate maximum physical capacity for this week
+    let maxCap = Number(week.eligible_days ?? 0);
+    if (week.status === "current") {
+      const loggedPresent = Number(week.present_days ?? 0);
+      maxCap = loggedPresent + getRemainingDaysInCurrentWeek();
     }
 
-    if (!changed) break;
+    let modified = false;
 
-    projected = simulateProjection(projected);
+    // Batch increment days until week meets target OR hits max capacity
+    while (
+      simulated[i].projectedYTD < targetYTD &&
+      simulated[i].recommendedPresent < maxCap
+    ) {
+      simulated[i].recommendedPresent += 1;
+      simulated[i].extraDays = (simulated[i].extraDays ?? 0) + 1;
+      simulated[i].requiresRecovery = true;
+      modified = true;
+
+      // Recalculate projection to check if target was met
+      simulated = simulateProjection(simulated);
+    }
   }
 
-  return projected;
+  return simulated;
 }
