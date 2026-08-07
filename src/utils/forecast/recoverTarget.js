@@ -3,9 +3,6 @@
 import simulateProjection from "./simulateProjection";
 import { DEFAULT_OPTIONS } from "./constants";
 
-/**
- * Calculates remaining work days (Mon-Fri) for a given date.
- */
 function getRemainingDaysInCurrentWeek(referenceDate = new Date()) {
   const today = referenceDate.getDay(); // 0=Sun, 1=Mon, ..., 5=Fri, 6=Sat
   if (today === 0 || today === 6) return 0; // Weekend

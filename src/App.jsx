@@ -102,14 +102,12 @@ function App() {
             </div>
           </div>
 
-          {/* Title */}
           <h1 className="mt-6 text-3xl font-bold text-white tracking-wide">
             Hybrid Rhythm
           </h1>
 
           <p className="mt-2 text-slate-400">Preparing your dashboard...</p>
 
-          {/* Module Loader */}
           <div className="mt-10 rounded-xl border border-slate-700 bg-slate-800/60 backdrop-blur-md p-5 text-left shadow-xl">
             {modules.map((module, index) => (
               <div

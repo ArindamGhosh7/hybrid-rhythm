@@ -1,7 +1,10 @@
+import { useEffect, useMemo, useState } from "react";
+
 import KPICards from "../components/KPICards";
 import AnalyticsChart from "../components/AnalyticsChart";
 import DataTable from "../components/DataTable/DataTable";
 import WorkCalendar from "../components/WorkCalendar/WorkCalendar";
+import { DEFAULT_OPTIONS } from "../utils/forecast/constants";
 
 export default function Dashboard({
   dashboard,
