@@ -12,6 +12,7 @@ export default function EventDialog({
   selectedDate,
   event,
   reloadCalendarEvents,
+  currentUser,
 }) {
   const [eventType, setEventType] = useState("");
   const [action, setAction] = useState(null);
@@ -37,6 +38,7 @@ export default function EventDialog({
   });
 
   const eventDate = formatLocalDate(selectedDate);
+
   async function handleSave() {
     if (!eventType) {
       alert("Please select an event type.");
@@ -46,8 +48,10 @@ export default function EventDialog({
     try {
       setAction("save");
 
-      await upsertCalendarEvent(eventDate, eventType);
-
+      await upsertCalendarEvent(eventDate, eventType, currentUser.id);
+      console.log("eventDate", eventDate);
+      console.log("eventType", eventType);
+      console.log("currentUser.id", currentUser.id);
       await reloadCalendarEvents();
 
       onClose();
@@ -69,7 +73,7 @@ export default function EventDialog({
     try {
       setAction("delete");
 
-      await deleteCalendarEventByDate(eventDate);
+      await deleteCalendarEventByDate(eventDate, currentUser.id);
 
       await reloadCalendarEvents();
 

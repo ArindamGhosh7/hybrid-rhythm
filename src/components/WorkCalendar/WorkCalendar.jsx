@@ -6,7 +6,11 @@ import EventDialog from "./EventDialog";
 
 import formatLocalDate from "../../utils/dateUtils/formatLocalDate";
 
-export default function WorkCalendar({ calendarEvents, reloadCalendarEvents }) {
+export default function WorkCalendar({
+  calendarEvents,
+  reloadCalendarEvents,
+  currentUser,
+}) {
   const [selectedDate, setSelectedDate] = useState(null);
   const [dialogOpen, setDialogOpen] = useState(false);
 
@@ -126,6 +130,7 @@ export default function WorkCalendar({ calendarEvents, reloadCalendarEvents }) {
         selectedDate={selectedDate}
         event={selectedEvent}
         reloadCalendarEvents={reloadCalendarEvents}
+        currentUser={currentUser}
       />
     </>
   );

@@ -18,6 +18,9 @@ export default function Dashboard({
 
   calendarEvents,
   reloadCalendarEvents,
+
+  currentUser,
+  logout,
 }) {
   return (
     <div className="min-h-screen bg-slate-900 text-slate-100 p-4 md:p-6">
@@ -29,6 +32,17 @@ export default function Dashboard({
             </h1>
 
             <p className="text-slate-400 mt-1">Attendance Planning Dashboard</p>
+          </div>
+          <div className="mt-4 md:mt-0 flex items-center gap-4">
+            <span className="text-sm text-slate-400">{currentUser.email}</span>
+
+            <button
+              type="button"
+              onClick={logout}
+              className="rounded-md border border-slate-600 px-3 py-1.5 text-sm text-slate-300 hover:bg-slate-800 hover:text-white transition"
+            >
+              Logout
+            </button>
           </div>
         </header>
 
@@ -73,6 +87,7 @@ export default function Dashboard({
         <WorkCalendar
           calendarEvents={calendarEvents}
           reloadCalendarEvents={reloadCalendarEvents}
+          currentUser={currentUser}
         />
       </div>
     </div>

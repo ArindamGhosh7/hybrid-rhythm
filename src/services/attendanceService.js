@@ -1,7 +1,7 @@
 import { supabase } from "../lib/supabaseClient";
 import { addDays, format, startOfWeek } from "date-fns";
 
-export async function ensureCurrentWeekExists(existingWeeks) {
+export async function ensureCurrentWeekExists(existingWeeks, userId) {
   // Monday of this week
   const monday = startOfWeek(new Date(), { weekStartsOn: 1 });
 
@@ -19,6 +19,7 @@ export async function ensureCurrentWeekExists(existingWeeks) {
   const { data, error } = await supabase
     .from("attendance_weeks")
     .insert({
+      user_id: userId,
       week_end_date: currentWeekEnd,
       present_days: null,
       eligible_days: 5,
@@ -33,10 +34,11 @@ export async function ensureCurrentWeekExists(existingWeeks) {
   );
 }
 
-export async function getAttendanceWeeks() {
+export async function getAttendanceWeeks(userId) {
   const { data, error } = await supabase
     .from("attendance_weeks")
     .select("*")
+    .eq("user_id", userId)
     .order("week_end_date");
 
   if (error) throw error;
@@ -44,13 +46,14 @@ export async function getAttendanceWeeks() {
   return data;
 }
 
-export async function updateAttendanceWeek(id, presentDays) {
+export async function updateAttendanceWeek(id, presentDays, userId) {
   const { error } = await supabase
     .from("attendance_weeks")
     .update({
       present_days: presentDays,
     })
-    .eq("id", id);
+    .eq("id", id)
+    .eq("user_id", userId);
 
   if (error) throw error;
 }

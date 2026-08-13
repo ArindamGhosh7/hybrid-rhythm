@@ -6,6 +6,8 @@ import {
   ensureCurrentWeekExists,
 } from "./services/attendanceService";
 import { getCalendarEvents } from "./services/calendarService";
+import Login from "./pages/Login";
+import { getUserByEmail } from "./services/userService";
 
 function App() {
   const [weeks, setWeeks] = useState([]);
@@ -15,9 +17,27 @@ function App() {
   const [loadingStep, setLoadingStep] = useState(0);
   const [calendarEvents, setCalendarEvents] = useState([]);
   const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+  const [currentUser, setCurrentUser] = useState(() => {
+    const saved = localStorage.getItem("currentUser");
+    return saved ? JSON.parse(saved) : null;
+  });
 
-  async function loadCalendarEvents() {
-    const events = await getCalendarEvents();
+  async function handleLogin(email) {
+    const user = await getUserByEmail(email);
+
+    if (!user) {
+      return false;
+    }
+
+    localStorage.setItem("currentUser", JSON.stringify(user));
+
+    setCurrentUser(user);
+
+    return true;
+  }
+
+  async function loadCalendarEvents(userId) {
+    const events = await getCalendarEvents(userId);
     setCalendarEvents(events);
 
     return events;
@@ -29,17 +49,17 @@ function App() {
 
       // Attendance History
       setLoadingStep(0);
-      let data = await getAttendanceWeeks();
+      let data = await getAttendanceWeeks(currentUser.id);
       await wait(400);
 
       // Current Week
       setLoadingStep(1);
-      data = await ensureCurrentWeekExists(data);
+      data = await ensureCurrentWeekExists(data, currentUser.id);
       await wait(400);
 
       // Event Calendar
       setLoadingStep(2);
-      const events = await loadCalendarEvents();
+      const events = await loadCalendarEvents(currentUser.id);
       await wait(400);
 
       // Dashboard
@@ -57,8 +77,10 @@ function App() {
   }
 
   useEffect(() => {
-    loadDashboard();
-  }, []);
+    if (currentUser) {
+      loadDashboard();
+    }
+  }, [currentUser]);
 
   //Dashboard Data
   const dashboard = useMemo(() => {
@@ -70,6 +92,16 @@ function App() {
 
     return forecast(activeWeeks, calendarEvents);
   }, [weeks, plannedWeeks, planningMode, calendarEvents]);
+
+  function logout() {
+    localStorage.removeItem("currentUser");
+
+    setCurrentUser(null);
+
+    setWeeks([]);
+    setPlannedWeeks([]);
+    setCalendarEvents([]);
+  }
 
   const loadingMessages = [
     "Loading attendance history...",
@@ -85,6 +117,9 @@ function App() {
     "Dashboard",
   ];
 
+  if (!currentUser) {
+    return <Login onLogin={handleLogin} />;
+  }
   if (loading || !dashboard) {
     return (
       <div className="min-h-screen bg-slate-900 flex items-center justify-center px-6">
@@ -153,6 +188,8 @@ function App() {
       setPlannedWeeks={setPlannedWeeks}
       calendarEvents={calendarEvents}
       reloadCalendarEvents={loadCalendarEvents}
+      currentUser={currentUser}
+      logout={logout}
     />
   );
 }

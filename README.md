@@ -1,3 +1,54 @@
+# Hybrid Rhythm - App.jsx Execution Flow
+
+```bash
+App()
+ │
+ ├─ Read currentUser from localStorage
+ │
+ ├─ First render
+ │    └─ No user → Login
+ │
+ │
+ │   User enters email
+ │
+ ▼
+handleLogin()
+ │
+ ├─ getUserByEmail()
+ ├─ localStorage.setItem()
+ └─ setCurrentUser()
+       │
+       ▼
+   App() renders again
+       │
+       ▼
+   useEffect()
+       │
+       ▼
+   loadDashboard()
+       │
+       ├─ getAttendanceWeeks(userId)
+       ├─ ensureCurrentWeekExists()
+       ├─ getCalendarEvents(userId)
+       └─ setWeeks / setPlannedWeeks
+              │
+              ▼
+          App() renders again
+              │
+              ▼
+          useMemo()
+              │
+              ▼
+          forecast()
+              │
+              ├─ calculateEligibleDays()
+              ├─ generateFutureWeeks()
+              ├─ projectWeeks()
+              ├─ calculateRunningTotals()
+              ├─ recoverTarget()
+              └─ buildDashboard()
+```
+
 # Hybrid Rhythm - Git Branch Workflow Guide
 
 ## Why use branches?
