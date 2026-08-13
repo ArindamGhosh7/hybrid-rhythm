@@ -1,3 +1,5 @@
+import "../App.css";
+
 export default function KPICards({ summary }) {
   const onTrack = summary.currentYTD >= 60;
 
@@ -38,44 +40,80 @@ function Card({
   badgeClass,
   valueColor = "text-white",
 }) {
+  const isRecoveryPlan = title.toLowerCase() === "recovery plan";
+
+  const isActionRequired = isRecoveryPlan && value === "Action Required";
+
+  const recoveryLineCount = subtitle ? subtitle.split("\n").length : 0;
+
+  const isLongRecoveryPlan = isRecoveryPlan && recoveryLineCount > 5;
+
   return (
     <div
-      className="
-      animate-card
-      group
-      relative
-      overflow-hidden
-      rounded-xl
-      border border-slate-700
-      bg-slate-800
-      p-4 md:p-5
-      shadow-sm
+      className={`
+        animate-card
+        group
+        relative
+        overflow-hidden
+        rounded-xl
+        border border-slate-700
+        bg-slate-800
+        p-4 md:p-5
+        shadow-sm
+        transition-all
+        duration-300
+        border-emerald-500/20
+        shadow-xl
+        shadow-emerald-500/5
 
-      transition-all
-      duration-300
+        ${isLongRecoveryPlan ? "xl:min-h-[300px]" : "h-52 md:h-56"}
 
-     border-emerald-500/20
-    shadow-xl
-    shadow-emerald-500/5
-
-    md:hover:-translate-y-1
-    md:hover:border-emerald-500/40
-    md:hover:shadow-2xl
-    md:hover:shadow-emerald-500/10
-    "
+        md:hover:-translate-y-1
+        md:hover:border-emerald-500/40
+        md:hover:shadow-2xl
+        md:hover:shadow-emerald-500/10
+      `}
     >
-      <p className="relative z-10 text-[10px] md:text-xs uppercase tracking-wider text-slate-400 font-semibold transition-colors duration-300 group-hover:text-slate-300">
+      <p
+        className="
+          relative z-10
+          text-[10px] md:text-xs
+          uppercase
+          tracking-wider
+          text-slate-400
+          font-semibold
+          transition-colors
+          duration-300
+          group-hover:text-slate-300
+        "
+      >
         {title}
       </p>
 
       <div className="relative z-10 mt-2 md:mt-3">
         <div
-          className={`text-2xl md:text-3xl font-bold transition-transform duration-300 group-hover:scale-105 ${valueColor}`}
+          className={`
+          text-2xl md:text-3xl
+          font-bold
+          transition-transform
+          duration-300
+          group-hover:scale-105
+          ${valueColor}
+
+          ${isActionRequired ? "recovery-alert" : ""}
+        `}
         >
           {value}
 
           {suffix && (
-            <span className="text-base md:text-lg ml-2 font-normal text-slate-400">
+            <span
+              className="
+                text-base md:text-lg
+                ml-2
+                font-normal
+                text-slate-400
+              "
+            >
               {suffix}
             </span>
           )}
@@ -83,16 +121,36 @@ function Card({
 
         {badge && (
           <span
-            className={`inline-block mt-3 px-2 py-1 rounded text-xs font-semibold animate-badge-in ${badgeClass}`}
+            className={`
+              inline-block
+              mt-3
+              px-2 py-1
+              rounded
+              text-xs
+              font-semibold
+              animate-badge-in
+              ${badgeClass}
+            `}
           >
             {badge}
           </span>
         )}
 
         {subtitle && (
-          <p className="whitespace-pre-line text-xs md:text-sm text-slate-400 mt-2 md:mt-3 leading-5 md:leading-6">
+          <div
+            className={`
+              recovery-scroll
+              text-xs md:text-sm
+              text-slate-400
+              mt-2 md:mt-3
+              leading-5 md:leading-6
+              whitespace-pre-line
+
+              ${isRecoveryPlan ? "max-h-[190px] xl:max-h-[230px] overflow-y-auto pr-2" : ""}
+            `}
+          >
             {subtitle}
-          </p>
+          </div>
         )}
       </div>
     </div>

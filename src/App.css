@@ -1,0 +1,16 @@
+@keyframes recovery-breathe {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.65;
+    transform: scale(1.03);
+  }
+}
+
+.recovery-alert {
+  animation: recovery-breathe 2s ease-in-out infinite;
+}
