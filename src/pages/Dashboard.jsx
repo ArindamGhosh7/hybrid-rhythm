@@ -83,6 +83,7 @@ export default function Dashboard({
           planningMode={planningMode}
           plannedWeeks={plannedWeeks}
           setPlannedWeeks={setPlannedWeeks}
+          currentUser={currentUser}
         />
         <WorkCalendar
           calendarEvents={calendarEvents}

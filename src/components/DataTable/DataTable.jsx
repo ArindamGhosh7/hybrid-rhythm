@@ -11,6 +11,7 @@ export default function DataTable({
   planningMode,
   plannedWeeks,
   setPlannedWeeks,
+  currentUser,
 }) {
   const [savingId, setSavingId] = useState(null);
   const desktopContainerRef = useRef(null);
@@ -40,7 +41,7 @@ export default function DataTable({
       try {
         const number = value === "" ? null : Number(value);
 
-        await updateAttendanceWeek(id, number);
+        await updateAttendanceWeek(id, number, currentUser.id);
 
         await reload();
       } catch (err) {
@@ -113,6 +114,7 @@ export default function DataTable({
             onSave={saveWeek}
             onPlanChange={updatePlannedWeek}
             currentWeekRef={mobileCurrentRowRef}
+            currentUser={currentUser}
           />
         ))}
       </div>

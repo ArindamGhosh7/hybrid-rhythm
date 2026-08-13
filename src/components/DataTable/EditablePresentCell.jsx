@@ -14,6 +14,7 @@ export default function EditablePresentCell({
   onPlanChange,
   widthClassName = "w-20",
   paddingClassName = "py-1.5",
+  currentUser,
 }) {
   const weekLabel = `week ending ${week.week_end_date}`;
 

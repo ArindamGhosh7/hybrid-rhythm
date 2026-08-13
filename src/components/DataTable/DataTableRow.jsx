@@ -8,6 +8,7 @@ export default function DataTableRow({
   onSave,
   onPlanChange,
   currentWeekRef,
+  currentUser,
 }) {
   const { week, plannedWeek, isCurrentWeek, isForecast } = rowModel;
 
@@ -50,6 +51,7 @@ export default function DataTableRow({
           savingId={savingId}
           onSave={onSave}
           onPlanChange={onPlanChange}
+          currentUser={currentUser}
         />
       </td>
 

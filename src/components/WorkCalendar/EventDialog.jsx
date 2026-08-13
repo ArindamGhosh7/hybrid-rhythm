@@ -49,9 +49,7 @@ export default function EventDialog({
       setAction("save");
 
       await upsertCalendarEvent(eventDate, eventType, currentUser.id);
-      console.log("eventDate", eventDate);
-      console.log("eventType", eventType);
-      console.log("currentUser.id", currentUser.id);
+
       await reloadCalendarEvents();
 
       onClose();

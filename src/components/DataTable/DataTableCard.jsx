@@ -19,6 +19,7 @@ export default function DataTableCard({
   onSave,
   onPlanChange,
   currentWeekRef,
+  currentUser,
 }) {
   const { week, plannedWeek, actualWeek, isCurrentWeek, isForecast } = rowModel;
 
@@ -64,6 +65,7 @@ export default function DataTableCard({
             onPlanChange={onPlanChange}
             widthClassName="w-full"
             paddingClassName="py-1"
+            currentUser={currentUser}
           />
         </Field>
 
