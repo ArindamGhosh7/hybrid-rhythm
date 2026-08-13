@@ -66,7 +66,7 @@ function Card({
         shadow-xl
         shadow-emerald-500/5
 
-        ${isLongRecoveryPlan ? "xl:min-h-[300px]" : "h-52 md:h-56"}
+        ${isLongRecoveryPlan ? "xl:min-h-[300px]" : "h-40 md:h-46"}
 
         md:hover:-translate-y-1
         md:hover:border-emerald-500/40
