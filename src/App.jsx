@@ -187,7 +187,7 @@ function App() {
       plannedWeeks={plannedWeeks}
       setPlannedWeeks={setPlannedWeeks}
       calendarEvents={calendarEvents}
-      reloadCalendarEvents={loadCalendarEvents}
+      reloadCalendarEvents={() => loadCalendarEvents(currentUser.id)}
       currentUser={currentUser}
       logout={logout}
     />

@@ -90,7 +90,7 @@ function Card({
         )}
 
         {subtitle && (
-          <p className="text-xs md:text-sm text-slate-400 mt-2 md:mt-3 leading-5 md:leading-6">
+          <p className="whitespace-pre-line text-xs md:text-sm text-slate-400 mt-2 md:mt-3 leading-5 md:leading-6">
             {subtitle}
           </p>
         )}
