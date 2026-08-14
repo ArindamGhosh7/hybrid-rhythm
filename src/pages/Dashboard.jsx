@@ -25,24 +25,77 @@ export default function Dashboard({
   return (
     <div className="min-h-screen bg-slate-900 text-slate-100 p-4 md:p-6">
       <div className="max-w-7xl mx-auto space-y-6">
-        <header className="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-slate-700 pb-4 md:pb-6">
-          <div>
-            <h1 className="text-2xl md:text-3xl font-bold tracking-tight">
-              Hybrid Rhythm
-            </h1>
+        <header
+          className="
+            border-b border-slate-700
+            pb-4 md:pb-6
+          "
+        >
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+            {/* Brand */}
+            <div>
+              <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-white">
+                Hybrid Rhythm
+              </h1>
 
-            <p className="text-slate-400 mt-1">Attendance Planning Dashboard</p>
-          </div>
-          <div className="mt-4 md:mt-0 flex items-center gap-4">
-            <span className="text-sm text-slate-400">{currentUser.email}</span>
+              <p className="text-slate-400 mt-1">
+                Attendance Planning Dashboard
+              </p>
+            </div>
 
-            <button
-              type="button"
-              onClick={logout}
-              className="rounded-md border border-slate-600 px-3 py-1.5 text-sm text-slate-300 hover:bg-slate-800 hover:text-white transition"
-            >
-              Logout
-            </button>
+            {/* User Section */}
+            <div className="flex items-center justify-between md:justify-start gap-3">
+              {/* Avatar */}
+              <div
+                className="
+                  shrink-0
+                  w-10 h-10
+                  rounded-full
+                  bg-emerald-500/10
+                  border border-emerald-500/30
+                  flex items-center justify-center
+                  text-emerald-400
+                  font-semibold
+                  text-sm
+                "
+              >
+                {currentUser.display_name?.charAt(0).toUpperCase()}
+              </div>
+
+              {/* User Info */}
+              <div className="min-w-0">
+                <p className="text-sm font-semibold text-slate-200 truncate">
+                  {currentUser.display_name}
+                </p>
+
+                <p className="text-xs text-slate-500 truncate max-w-[180px]">
+                  {currentUser.email}
+                </p>
+              </div>
+
+              {/* Logout */}
+              <button
+                type="button"
+                onClick={logout}
+                className="
+                shrink-0
+                ml-2
+                rounded-lg
+                border border-slate-700
+                bg-slate-800
+                px-3 py-2
+                text-sm
+                text-slate-300
+                transition
+
+                hover:border-red-500/40
+                hover:bg-red-500/10
+                hover:text-red-400
+              "
+              >
+                Logout
+              </button>
+            </div>
           </div>
         </header>
 
