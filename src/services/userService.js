@@ -13,3 +13,18 @@ export async function getUserByEmail(email) {
 
   return data;
 }
+
+export async function updateUserYTDTarget(userId, targetPercentage) {
+  const { data, error } = await supabase
+    .from("hr_users")
+    .update({
+      ytd_target: targetPercentage,
+    })
+    .eq("id", userId)
+    .select()
+    .single();
+
+  if (error) throw error;
+
+  return data;
+}

@@ -1,12 +1,12 @@
 import "../App.css";
 
 export default function KPICards({ summary }) {
-  const onTrack = summary.currentYTD >= 60;
-
+  const onTrack = summary.currentYTD >= summary.targetYTD;
   return (
     <section className="grid grid-cols-2 xl:grid-cols-4 gap-4">
       <Card
         title="Current YTD"
+        suffix={`Target: ${summary.targetYTD.toFixed(0)}%`}
         value={`${summary.currentYTD.toFixed(1)}%`}
         valueColor={onTrack ? "text-emerald-400" : "text-red-400"}
         badge={onTrack ? "Target Met" : "Below Target"}
@@ -46,7 +46,7 @@ function Card({
 
   const recoveryLineCount = subtitle ? subtitle.split("\n").length : 0;
 
-  const isLongRecoveryPlan = isRecoveryPlan && recoveryLineCount > 5;
+  const isLongRecoveryPlan = isRecoveryPlan && recoveryLineCount >= 4;
 
   return (
     <div

@@ -135,7 +135,7 @@ export default function EventDialog({
             />
 
             <div>
-              <div className="font-medium text-white">Work From Home</div>
+              <div className="font-medium text-white">IOP / Work From Home</div>
 
               <div className="text-sm text-slate-400">
                 Office attendance not required.

@@ -78,7 +78,7 @@ export default function DataTableCard({
         <Field label="Running Eligible">{week.runningEligible}</Field> */}
 
         <Field label="Projected YTD">
-          <YtdBadge value={week.runningYTD} />
+          <YtdBadge value={week.runningYTD} currentUser={currentUser} />
         </Field>
 
         <Field label="Recommendation">

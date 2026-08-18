@@ -68,7 +68,7 @@ export default function DataTableRow({
       </td>
 
       <td className="px-4 md:px-6 py-4 text-center">
-        <YtdBadge value={week.runningYTD} />
+        <YtdBadge value={week.runningYTD} currentUser={currentUser} />
       </td>
 
       <td className="px-4 md:px-6 py-4 text-center">

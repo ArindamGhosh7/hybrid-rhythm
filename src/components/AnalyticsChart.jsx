@@ -15,6 +15,7 @@ import {
 
 export default function AnalyticsChart({ data, planningMode }) {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const targetYTDPercentage = data?.[0]?.target ?? 60;
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);
@@ -140,7 +141,7 @@ export default function AnalyticsChart({ data, planningMode }) {
 
             <ReferenceLine
               yAxisId="percent"
-              y={60}
+              y={targetYTDPercentage}
               stroke="#15f7ff"
               strokeDasharray="5 5"
             />

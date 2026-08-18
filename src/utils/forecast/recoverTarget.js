@@ -9,9 +9,10 @@ function getRemainingDaysInCurrentWeek(referenceDate = new Date()) {
   return 5 - today + 1; // Mon: 5, Tue: 4, Wed: 3, Thu: 2, Fri: 1
 }
 
-export default function recoverTarget(totals, options = DEFAULT_OPTIONS) {
+export default function recoverTarget(totals, userSettings) {
   let simulated = simulateProjection(totals);
-  const targetYTD = options.targetPercentage * 100;
+
+  const targetYTD = userSettings.targetYTDPercentage * 100;
 
   for (let i = 0; i < simulated.length; i++) {
     const week = simulated[i];

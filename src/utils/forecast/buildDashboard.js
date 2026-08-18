@@ -1,10 +1,11 @@
 import { DEFAULT_OPTIONS } from "./constants";
 
-export default function buildDashboard(weeks, options = DEFAULT_OPTIONS) {
+export default function buildDashboard(weeks, userSettings) {
   const summary = {
     totalPresent: 0,
     totalEligible: 0,
     currentYTD: 0,
+    targetYTD: userSettings.targetYTDPercentage * 100,
     status: "On Track",
     recoveryMessage: "",
     recoveryPlan: [],
@@ -94,7 +95,7 @@ export default function buildDashboard(weeks, options = DEFAULT_OPTIONS) {
       ytd: week.runningYTD,
       status: week.status,
 
-      target: options.targetPercentage * 100,
+      target: userSettings.targetYTDPercentage * 100,
     })),
   };
 }

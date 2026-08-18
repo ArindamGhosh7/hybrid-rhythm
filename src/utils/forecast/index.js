@@ -5,7 +5,7 @@ import buildDashboard from "./buildDashboard";
 import generateFutureWeeks from "./generateFutureWeeks";
 import calculateEligibleDays from "../../utils/dateUtils/calculateEligibleDays";
 
-export function forecast(rawWeeks, calendarEvents) {
+export function forecast(rawWeeks, calendarEvents, userSettings) {
   const weeks = rawWeeks.map((week) => ({
     ...week,
     eligible_days: calculateEligibleDays(week.week_end_date, calendarEvents),
@@ -14,8 +14,8 @@ export function forecast(rawWeeks, calendarEvents) {
   const allWeeks = generateFutureWeeks(weeks, calendarEvents);
   const projected = projectWeeks(allWeeks);
   const totals = calculateRunningTotals(projected);
-  const recovered = recoverTarget(totals);
-  const dashboardData = buildDashboard(recovered);
+  const recovered = recoverTarget(totals, userSettings);
+  const dashboardData = buildDashboard(recovered, userSettings);
   // debugger;
   return dashboardData;
 }

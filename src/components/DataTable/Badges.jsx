@@ -32,8 +32,8 @@ export function RecommendationBadge({ week, isForecast }) {
   );
 }
 
-export function YtdBadge({ value }) {
-  const isOnTrack = value >= 60;
+export function YtdBadge({ value, currentUser }) {
+  const isOnTrack = value >= currentUser.ytd_target;
 
   return (
     <span

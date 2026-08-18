@@ -7,7 +7,8 @@ import {
 } from "./services/attendanceService";
 import { getCalendarEvents } from "./services/calendarService";
 import Login from "./pages/Login";
-import { getUserByEmail } from "./services/userService";
+import UserSettings from "./pages/UserSettings";
+import { getUserByEmail, updateUserYTDTarget } from "./services/userService";
 
 function App() {
   const [weeks, setWeeks] = useState([]);
@@ -21,6 +22,19 @@ function App() {
     const saved = localStorage.getItem("currentUser");
     return saved ? JSON.parse(saved) : null;
   });
+  const [showSettings, setShowSettings] = useState(false);
+
+  const userSettings = {
+    targetYTDPercentage: Number(currentUser?.ytd_target ?? 90) / 100,
+  };
+
+  async function handleSaveSettings(ytdTarget) {
+    const updatedUser = await updateUserYTDTarget(currentUser.id, ytdTarget);
+
+    localStorage.setItem("currentUser", JSON.stringify(updatedUser));
+
+    setCurrentUser(updatedUser);
+  }
 
   async function handleLogin(email) {
     const user = await getUserByEmail(email);
@@ -67,7 +81,7 @@ function App() {
       setWeeks(data);
 
       setPlannedWeeks(
-        forecast(data, events).weeks.map((week) => ({ ...week })),
+        forecast(data, events, userSettings).weeks.map((week) => ({ ...week })),
       );
 
       await wait(400);
@@ -90,8 +104,14 @@ function App() {
       return null;
     }
 
-    return forecast(activeWeeks, calendarEvents);
-  }, [weeks, plannedWeeks, planningMode, calendarEvents]);
+    return forecast(activeWeeks, calendarEvents, userSettings);
+  }, [
+    weeks,
+    plannedWeeks,
+    planningMode,
+    calendarEvents,
+    currentUser?.ytd_target,
+  ]);
 
   function logout() {
     localStorage.removeItem("currentUser");
@@ -179,18 +199,29 @@ function App() {
     );
   }
   return (
-    <Dashboard
-      dashboard={dashboard}
-      reload={loadDashboard}
-      planningMode={planningMode}
-      setPlanningMode={setPlanningMode}
-      plannedWeeks={plannedWeeks}
-      setPlannedWeeks={setPlannedWeeks}
-      calendarEvents={calendarEvents}
-      reloadCalendarEvents={() => loadCalendarEvents(currentUser.id)}
-      currentUser={currentUser}
-      logout={logout}
-    />
+    <>
+      <Dashboard
+        dashboard={dashboard}
+        reload={loadDashboard}
+        planningMode={planningMode}
+        setPlanningMode={setPlanningMode}
+        plannedWeeks={plannedWeeks}
+        setPlannedWeeks={setPlannedWeeks}
+        calendarEvents={calendarEvents}
+        reloadCalendarEvents={() => loadCalendarEvents(currentUser.id)}
+        currentUser={currentUser}
+        logout={logout}
+        onOpenSettings={() => setShowSettings(true)}
+      />
+
+      {showSettings && (
+        <UserSettings
+          currentUser={currentUser}
+          onClose={() => setShowSettings(false)}
+          onSave={handleSaveSettings}
+        />
+      )}
+    </>
   );
 }
 

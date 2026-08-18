@@ -92,6 +92,7 @@ export default function DataTable({
                 onSave={saveWeek}
                 onPlanChange={updatePlannedWeek}
                 currentWeekRef={desktopCurrentRowRef}
+                currentUser={currentUser}
               />
             ))}
           </tbody>
