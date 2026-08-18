@@ -5,8 +5,8 @@ export default function KPICards({ summary }) {
   return (
     <section className="grid grid-cols-2 xl:grid-cols-4 gap-4">
       <Card
-        title="Current YTD"
-        suffix={`Target: ${summary.targetYTD.toFixed(0)}%`}
+        title="Your Current YTD"
+        subtitle={`Company Target: ${summary.targetYTD.toFixed(0)}%`}
         value={`${summary.currentYTD.toFixed(1)}%`}
         valueColor={onTrack ? "text-emerald-400" : "text-red-400"}
         badge={onTrack ? "Target Met" : "Below Target"}
