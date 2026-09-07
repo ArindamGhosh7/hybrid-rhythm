@@ -45,15 +45,6 @@ export default function UserSettings({ currentUser, onClose, onSave }) {
               Customize your attendance target
             </p>
           </div>
-
-          <button
-            type="button"
-            onClick={onClose}
-            className="text-slate-400 hover:text-white text-xl"
-            aria-label="Close settings"
-          >
-            ×
-          </button>
         </div>
 
         {/* YTD Target */}
