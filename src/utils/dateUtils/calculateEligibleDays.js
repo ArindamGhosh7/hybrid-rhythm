@@ -13,18 +13,24 @@ export default function calculateEligibleDays(weekEndingDate, calendarEvents) {
     weekStartsOn: 1,
   });
 
-  const excludedDays = calendarEvents.filter((event) => {
-    const [y, m, d] = event.event_date.split("-").map(Number);
+  // Date-only events may be duplicated by older data. Only unique weekday events
+  // can reduce the five-day workweek capacity.
+  const excludedDates = new Set(
+    calendarEvents
+      .filter((event) => {
+        const [eventYear, eventMonth, eventDay] = event.event_date
+          .split("-")
+          .map(Number);
+        const date = new Date(eventYear, eventMonth - 1, eventDay);
 
-    const date = new Date(y, m - 1, d);
+        return (
+          isWithinInterval(date, { start: weekStart, end: weekFinish }) &&
+          date.getDay() >= 1 &&
+          date.getDay() <= 5
+        );
+      })
+      .map((event) => event.event_date),
+  );
 
-    const within = isWithinInterval(date, {
-      start: weekStart,
-      end: weekFinish,
-    });
-
-    return within;
-  }).length;
-
-  return Math.max(0, 5 - excludedDays);
+  return Math.max(0, 5 - excludedDates.size);
 }

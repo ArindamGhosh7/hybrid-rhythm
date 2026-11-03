@@ -27,12 +27,8 @@ export default function DataTableCard({
     <div
       ref={isCurrentWeek ? currentWeekRef : null}
       role="listitem"
-      className={`rounded-lg border p-3 space-y-2 ${
-        isCurrentWeek
-          ? "bg-emerald-900/20 border-emerald-400/60"
-          : isForecast
-            ? "bg-indigo-950/20 border-slate-700"
-            : "bg-slate-800/60 border-slate-700"
+      className={`data-table-card rounded-xl border p-4 space-y-3 ${
+        isCurrentWeek ? "is-current" : isForecast ? "is-forecast" : ""
       }`}
     >
       <div className="flex items-center justify-between gap-2">

@@ -7,6 +7,7 @@ export default function AttendanceStepper({
   disabled = false,
   onChange,
   showSaveButton = false,
+  compact = false,
 }) {
   const [localValue, setLocalValue] = useState(value ?? 0);
 
@@ -18,11 +19,22 @@ export default function AttendanceStepper({
 
   const dirty = showSaveButton && localValue !== (value ?? 0);
 
+  const buttonSize = compact ? "h-7 w-7" : "h-14 w-14";
+  const iconSize = compact ? "text-base" : "text-2xl";
+  const outputSize = compact
+    ? "h-7 min-w-[36px] px-2 text-base"
+    : "h-14 min-w-[76px] px-5 text-2xl";
+
   return (
     <div className="flex flex-col items-center">
-      <div className="flex items-center gap-2">
+      <div
+        className={`flex items-center justify-center ${compact ? "gap-1.5" : "gap-3"}`}
+        role="group"
+        aria-label="Office attendance days"
+      >
         <button
           type="button"
+          aria-label="Decrease attendance days"
           disabled={disabled || currentValue <= min}
           onClick={() => {
             if (showSaveButton) {
@@ -31,43 +43,48 @@ export default function AttendanceStepper({
               onChange(currentValue - 1);
             }
           }}
-          className="
-        flex h-9 w-9 items-center justify-center
+          className={`
+        flex ${buttonSize} items-center justify-center
         rounded-full
-        border border-slate-600
+        border border-slate-500
         bg-slate-800
-        text-slate-300
+        text-slate-200
+        shadow-sm shadow-slate-950/40
         transition-all
         duration-200
-        hover:border-indigo-400
-        hover:bg-indigo-500
-        hover:text-white
+        hover:border-teal-300
+        hover:bg-teal-500
+        hover:text-slate-950
         active:scale-95
         disabled:cursor-not-allowed
+        disabled:opacity-50
         disabled:hover:bg-slate-800
-        disabled:hover:border-slate-600
-      "
+        disabled:hover:border-slate-500
+      `}
         >
-          <span className="text-lg font-semibold leading-none">−</span>
+          <span className={`${iconSize} font-semibold leading-none`}>−</span>
         </button>
 
-        <div
-          className="
-        flex h-9 min-w-[44px] items-center justify-center
-        rounded-lg
-        border border-slate-700
-        bg-slate-900
-        px-3
-        text-base
+        <output
+          aria-live="polite"
+          aria-label={`${currentValue} attendance days`}
+          className={`
+        flex ${outputSize} items-center justify-center
+        rounded-xl
+        border border-slate-600
+        bg-slate-950/70
+        font-bold
         tabular-nums
-        text-slate-100
-      "
+        text-slate-50
+        shadow-inner shadow-slate-950/60
+      `}
         >
           {currentValue}
-        </div>
+        </output>
 
         <button
           type="button"
+          aria-label="Increase attendance days"
           disabled={disabled || currentValue >= max}
           onClick={() => {
             if (showSaveButton) {
@@ -76,24 +93,26 @@ export default function AttendanceStepper({
               onChange(currentValue + 1);
             }
           }}
-          className="
-        flex h-9 w-9 items-center justify-center
+          className={`
+        flex ${buttonSize} items-center justify-center
         rounded-full
-        border border-slate-600
+        border border-slate-500
         bg-slate-800
-        text-slate-300
+        text-slate-200
+        shadow-sm shadow-slate-950/40
         transition-all
         duration-200
-        hover:border-indigo-400
-        hover:bg-indigo-500
-        hover:text-white
-        active:scale-90
+        hover:border-teal-300
+        hover:bg-teal-500
+        hover:text-slate-950
+        active:scale-95
         disabled:cursor-not-allowed
+        disabled:opacity-50
         disabled:hover:bg-slate-800
-        disabled:hover:border-slate-600
-      "
+        disabled:hover:border-slate-500
+      `}
         >
-          <span className="text-lg font-semibold leading-none">+</span>
+          <span className={`${iconSize} font-semibold leading-none`}>+</span>
         </button>
       </div>
 

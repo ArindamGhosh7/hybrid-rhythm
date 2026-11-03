@@ -10,7 +10,7 @@ const COLUMNS = [
 
 export default function DataTableHeader() {
   return (
-    <thead className="sticky top-0 z-20 bg-slate-900 border-b border-slate-700 text-xs uppercase tracking-wider text-slate-400">
+    <thead className="data-table-header sticky top-0 z-20 text-xs uppercase tracking-wider">
       <tr>
         {COLUMNS.map((column) => (
           <th

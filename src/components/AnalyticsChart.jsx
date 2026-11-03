@@ -55,10 +55,19 @@ export default function AnalyticsChart({ data, planningMode }) {
   }, []);
 
   return (
-    <div className="bg-slate-800 border border-slate-700 rounded-xl p-4 md:p-6 h-[360px] md:h-[420px]">
-      <h3 className="text-base md:text-lg font-semibold mb-4 md:mb-6">
-        Attendance Forecast
-      </h3>
+    <section
+      className="analytics-card h-[360px] md:h-[420px]"
+      aria-labelledby="forecast-title"
+    >
+      <div className="analytics-card-heading">
+        <div>
+          <p className="eyebrow">Attendance trend</p>
+          <h2 id="forecast-title">Attendance forecast</h2>
+        </div>
+        <span className="muted-badge">
+          {planningMode ? "Scenario view" : "Recorded + forecast"}
+        </span>
+      </div>
 
       <div className="h-[280px] md:h-[340px]">
         <ResponsiveContainer width="100%" height="100%">
@@ -179,6 +188,6 @@ export default function AnalyticsChart({ data, planningMode }) {
           </ComposedChart>
         </ResponsiveContainer>
       </div>
-    </div>
+    </section>
   );
 }

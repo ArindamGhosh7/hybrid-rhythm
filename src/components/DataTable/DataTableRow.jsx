@@ -15,12 +15,8 @@ export default function DataTableRow({
   return (
     <tr
       ref={isCurrentWeek ? currentWeekRef : null}
-      className={`border-t border-slate-700 transition-colors ${
-        isCurrentWeek
-          ? "bg-emerald-900/20 border-l-4 border-l-emerald-400"
-          : isForecast
-            ? "bg-indigo-950/20"
-            : "hover:bg-slate-700/30"
+      className={`data-table-row transition-colors ${
+        isCurrentWeek ? "is-current" : isForecast ? "is-forecast" : ""
       }`}
     >
       <td className="px-4 md:px-6 py-4">

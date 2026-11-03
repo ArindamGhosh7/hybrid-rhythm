@@ -26,6 +26,7 @@ export default function EditablePresentCell({
         max={week.eligible_days}
         disabled={savingId === week.id}
         showSaveButton
+        compact
         onChange={(value) => onSave(week.id, value)}
       />
     );
@@ -37,6 +38,7 @@ export default function EditablePresentCell({
         value={plannedWeek.present_days}
         min={0}
         max={plannedWeek.eligible_days}
+        compact
         onChange={(value) => onPlanChange(week.id, "present_days", value)}
       />
     );

@@ -70,7 +70,10 @@ export default function DataTable({
   );
 
   return (
-    <section className="bg-slate-800 border border-slate-700 rounded-xl overflow-hidden shadow-sm">
+    <section
+      className="data-table-shell"
+      aria-label="Weekly attendance records"
+    >
       {/* Desktop / tablet: original table layout, unchanged */}
       <div
         ref={desktopContainerRef}
@@ -104,7 +107,7 @@ export default function DataTable({
         ref={mobileContainerRef}
         role="list"
         aria-label="Weekly attendance and forecast data"
-        className="md:hidden overflow-y-auto max-h-[600px] p-3 space-y-3"
+        className="data-table-cards md:hidden overflow-y-auto max-h-[600px] p-3 space-y-3"
       >
         {rows.map((rowModel) => (
           <DataTableCard
