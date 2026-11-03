@@ -40,6 +40,7 @@ export default function Dashboard({
     () => dashboard.weeks.find((week) => week.status === "current"),
     [dashboard.weeks],
   );
+  console.log(currentWeek);
   const onTrack = dashboard.summary.currentYTD >= dashboard.summary.targetYTD;
   const progress = Math.min(
     100,
@@ -115,7 +116,10 @@ export default function Dashboard({
             <h1>{viewTitle}</h1>
           </div>
           <div className="top-actions">
-            <span className="reporting-period">Reporting year · 2026</span>
+            <span className="reporting-period">
+              Reporting year ·{" "}
+              {Number(currentWeek?.week_end_date?.substring(0, 4))}
+            </span>
             <button
               type="button"
               className="icon-settings"
@@ -186,7 +190,9 @@ export default function Dashboard({
               <article className="checkin-card">
                 <div className="section-heading">
                   <div>
-                    <p className="eyebrow">This week</p>
+                    <p className="eyebrow">
+                      This week - {currentWeek?.week_end_date ?? 0}
+                    </p>
                     <h2>Log office attendance</h2>
                   </div>
                   <span className="muted-badge">
