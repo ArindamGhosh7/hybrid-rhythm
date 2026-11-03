@@ -157,7 +157,7 @@ export default function Dashboard({
                 </h2>
                 <p>
                   {onTrack
-                    ? "Your attendance to date is keeping pace with your goal."
+                    ? "Your attendance to date is keeping pace with your GOAL."
                     : dashboard.summary.recoveryPlan?.[0]?.text ||
                       "Review your upcoming weeks to see the clearest next step."}
                 </p>
