@@ -181,20 +181,24 @@ export default function WorkCalendar({
               classNames={{
                 months: "calendar-months",
                 month: "calendar-month",
-                caption: "calendar-caption",
+                month_caption: "calendar-caption",
                 caption_label: "calendar-caption-label",
                 nav: "calendar-nav",
                 button_previous: "calendar-nav-button",
                 button_next: "calendar-nav-button",
-                table: "calendar-table",
-                head_cell: "calendar-head-cell",
-                cell: "calendar-cell",
-                day: "calendar-day",
+                month_grid: "calendar-table",
+                weekdays: "calendar-weekdays",
+                weekday: "calendar-head-cell",
+                weeks: "calendar-weeks",
+                week: "calendar-week",
+                day: "calendar-cell",
+                day_button: "calendar-day",
                 selected: "calendar-day-selected",
                 today: "calendar-day-today",
                 outside: "calendar-day-outside",
               }}
             />
+
             <div className="calendar-legend" aria-label="Calendar states">
               <span>
                 <i className="office" aria-hidden="true" />
