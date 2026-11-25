@@ -376,6 +376,18 @@ export default function Dashboard({
                   <p className="eyebrow">Scenario composer</p>
                   <h2>Future weekly plan</h2>
                 </div>
+                <button
+                  type="button"
+                  className={
+                    planningMode ? "toggle-pill enabled" : "toggle-pill"
+                  }
+                  onClick={() => setPlanningMode(!planningMode)}
+                  aria-pressed={planningMode}
+                >
+                  {planningMode
+                    ? "Scenario editing on"
+                    : "Enable scenario editing"}
+                </button>
                 <span className="muted-badge">
                   {planningMode ? "Editing enabled" : "Enable editing above"}
                 </span>
